@@ -1,3 +1,10 @@
+/* 
+ * Author: Loh Shau Ern Shaun
+ * Date: 13/5/2025
+ * Handles the player movement inputs
+ * Player character faces the direction of movement
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
