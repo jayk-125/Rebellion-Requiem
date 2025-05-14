@@ -37,7 +37,7 @@ public class TeleEnter : MonoBehaviour
         {
             Debug.Log("Player Triggered");
             // Get random destination from teleport manager
-            telepoint = teleportPads.CallWarpRandom();
+            telepoint = teleportPads.CallWarpRandom().transform.Find("TP_Exit/TP_Point");
             // Hide player
             playerChar.SetActive(false);
             // Set player character position at new destination

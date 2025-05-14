@@ -14,11 +14,14 @@ public class TeleportPads : MonoBehaviour
 {
     // List of all current unused teleporter exits
     public List<GameObject> usableTeleports;
+    // Reference camera controller
+    private CameraController cameraController;
 
     // Awake is called when scene is opened
     void Awake()
     {
-
+        // Find the camera controller
+        cameraController = FindObjectOfType<CameraController>();
     }
 
     // When called to teleport to random room
@@ -45,6 +48,8 @@ public class TeleportPads : MonoBehaviour
 
         // Get the corresponding room element
         GameObject roomLocation = usableTeleports[randRoomNum-1];
+        // Move camera borders
+        cameraController.SetCameraBorders(roomLocation,false);
         // Remove the room from list
         usableTeleports.Remove(roomLocation);
         // Return the room destination
