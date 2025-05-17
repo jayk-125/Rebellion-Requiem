@@ -1,3 +1,11 @@
+/* 
+ * Author: Loh Shau Ern Shaun
+ * Date: 14/5/2025
+ * Camera follows the player camera
+ * Stops following at the border of a room
+ * Camera follows player to different rooms
+ * Camera adapts to the room size
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,16 +14,12 @@ public class CameraController : MonoBehaviour
 {
     // Target to focus on
     public Transform target;
-    // Camera following smoothness (the slide toward the end of a follow)
-    public float smoothing = 0f;
     // The difference from player and camera (so it doesnt become 1st person)
     public Vector3 offset;
-    // Speed of camera following
-    private float velocity = 100f;
 
-    // Reference to camera limits for room border
     // Reference the relative camera middle
     public GameObject camMiddle;
+    // Reference to camera limits for room border
     public Vector3 minPosition;
     public Vector3 maxPosition;
 
@@ -48,14 +52,14 @@ public class CameraController : MonoBehaviour
                 {
                     //Debug.Log("Hori Ok!~");
                     // Allow camera to move to the target position horizontally
-                    newXPos = Mathf.SmoothDamp(transform.position.x, targetPosition.x, ref velocity, smoothing);
+                    newXPos = targetPosition.x;
                 }
                 // Check if at vertical limit
                 if (BorderCheck(targetPosition, "vert"))
                 {
                     //Debug.Log("Vert Ok!~");
                     // Allow camera to move to the target position vertically
-                    newZPos = Mathf.SmoothDamp(transform.position.z, targetPosition.z, ref velocity, smoothing);
+                    newZPos = targetPosition.z;
                 }
 
                 // Move camera
@@ -110,13 +114,21 @@ public class CameraController : MonoBehaviour
         Transform relativeStart = totalObject.transform.Find("CamMiddle");
         Debug.Log(relativeStart);
 
-        // Set min position
-        minPosition.x = relativeStart.position.x - 6f;
-        minPosition.z = relativeStart.position.z - 9.5f;
-        // Set max position
-        maxPosition.x = relativeStart.position.x + 6f;
-        maxPosition.z = relativeStart.position.z + 8.5f;
+        // Get the current room's min world position
+        Transform dynamicMinPos = totalObject.transform.Find("PositionHolder").Find("MinPosition");
+        //Debug.Log(dynamicMinPos.position);
+        // Get the current room's max world position
+        Transform dynamicMaxPos = totalObject.transform.Find("PositionHolder").Find("MaxPosition");
+        //Debug.Log(dynamicMaxPos.position);
 
+        // Set relative min position
+        minPosition.x = dynamicMinPos.position.x + 8f;
+        minPosition.z = dynamicMinPos.position.z +1f;
+        // Set relative max position
+        maxPosition.x = dynamicMaxPos.position.x - 8f;
+        maxPosition.z = dynamicMaxPos.position.z - 12f;
+
+        // If it's not the starting room
         if (!isStart)
         {
             // Get the tele start object
