@@ -1,6 +1,7 @@
 /* 
- * Author: Loh Shau Ern Shaun
- * Date: 17/5/2025
+ * Author: Loh Shau Ern Shaun, Jaykin Lee
+ * Date Created: 17/5/2025
+ * Date Updated: 19/5/2025
  * Updates player health to how much they currently have
  * Handles calling other effects when taking dmg (EG: Knockback, i-frames)
  * When reaching 0, reset the scene
@@ -12,14 +13,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class PlayerHealth : MonoBehaviour
 {
     // Value to handle amount of player health
     public int healthValue;
 
-    // Reference to player health slider
-    public Slider healthBar;
+    // Reference to player health UI
+    public Image healthPieChart;
     // Reference to player health text
     public TextMeshProUGUI healthText;
 
@@ -139,8 +141,8 @@ public class PlayerHealth : MonoBehaviour
     // Update the player health value
     private void UpdateHealthValue()
     {
-        // Set the slider to current hp
-        healthBar.value = healthValue;
+        // Set the health UI to current hp
+        healthPieChart.fillAmount = Convert.ToSingle(healthValue)/100;
         // Set the player health text
         healthText.text = healthValue.ToString();
     }
