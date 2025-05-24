@@ -20,8 +20,8 @@ public class CameraController : MonoBehaviour
     // Reference the relative camera middle
     public GameObject camMiddle;
     // Reference to camera limits for room border
-    public Vector3 minPosition;
-    public Vector3 maxPosition;
+    private Vector3 minPosition;
+    private Vector3 maxPosition;
 
     // Awake is called when scene is started
     void Awake()

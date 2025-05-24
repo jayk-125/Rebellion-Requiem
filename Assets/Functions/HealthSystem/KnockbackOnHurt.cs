@@ -36,7 +36,12 @@ public class KnockbackOnHurt : MonoBehaviour
         StopAllCoroutines();
 
         // Set the kb direction and power
-        Vector3 KBpower = (transform.position - sender.transform.position).normalized * strength;
+        Vector3 kbDir = (transform.position - sender.transform.position).normalized;
+        Vector3 KBpower = kbDir * strength;
+
+
+        Debug.DrawLine(transform.position, transform.position + kbDir * strength, Color.red, 3f);
+
         // Apply the kb force to hurt object
         rb.AddForce(KBpower.x, 0, KBpower.z, ForceMode.Impulse);
 
