@@ -26,21 +26,21 @@ public class KnockbackOnHurt : MonoBehaviour
         // Set the hurt object's rigidbody
         rb = hurtObject.GetComponent<Rigidbody>();
         // Play the kb effect
-        PlayFeedback(sender);
+        PlayFeedback(hurtObject,sender);
     }
 
     // Play the kb effect
-    public void PlayFeedback(GameObject sender)
+    public void PlayFeedback(GameObject hurtObject, GameObject sender)
     {
         // Stop all other coroutines
         StopAllCoroutines();
 
         // Set the kb direction and power
-        Vector3 kbDir = (transform.position - sender.transform.position).normalized;
+        Vector3 kbDir = (hurtObject.transform.position - sender.transform.position).normalized;
         Vector3 KBpower = kbDir * strength;
 
 
-        Debug.DrawLine(transform.position, transform.position + kbDir * strength, Color.red, 3f);
+        Debug.DrawLine(hurtObject.transform.position, hurtObject.transform.position + kbDir * strength, Color.blue, 3f);
 
         // Apply the kb force to hurt object
         rb.AddForce(KBpower.x, 0, KBpower.z, ForceMode.Impulse);

@@ -112,7 +112,7 @@ public class PlayerHealth : MonoBehaviour
     private void KnockbackPlayer(GameObject hurtingObj)
     {
         // Play the kb on hurt effect with player and hurting obj as arguments
-        kbOnHurt.HurtKnockback(this.gameObject, hurtingObj);
+        kbOnHurt.HurtKnockback(gameObject, hurtingObj);
 
         // Trigger i-frames
         StartCoroutine(HurtInvincibility());

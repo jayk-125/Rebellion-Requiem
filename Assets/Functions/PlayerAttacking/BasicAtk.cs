@@ -2,6 +2,7 @@
  * Author: Loh Shau Ern Shaun
  * Date: 23/5/2025
  * Player attacking with LMB
+ * Attacks in direction of player mouse from player position
  * Player cannot attack during cooldown of attack
  * Varies based on current character
  */
@@ -14,9 +15,18 @@ using UnityEngine.InputSystem;
 public class BasicAtk : MonoBehaviour
 {
     // Reference to golem hitbox object
-    private GameObject golemAttack;
+    [SerializeField]
+    private GameObject[] atkList;
+    // Reference to atk cds
+    [SerializeField]
+    private float[] cdList;
+    // Reference to golem hitbox object
+    private GameObject currentAttack;
     // Reference player camera
     public Camera cam;
+
+    // Reference the current character
+    private string currentCharacter;
 
     // Checks if player is attacking
     private bool attacking = false;
@@ -36,10 +46,8 @@ public class BasicAtk : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Find hitbox gameobject
-        golemAttack = transform.Find("GBasHitbox").gameObject;
-        // Hide hitboxes
-        golemAttack.SetActive(false);
+        // Hide all hitboxes
+        ResetHitboxes();
     }
 
     // Update is called once per frame
@@ -90,23 +98,68 @@ public class BasicAtk : MonoBehaviour
         }
     }
 
+    // Hide all the hitboxes
+    private void ResetHitboxes()
+    {
+        // Go thru each saved hitbox
+        foreach (GameObject hitbox in atkList)
+        {
+            // Hide each one
+            hitbox.SetActive(false);
+        }
+    }
+
+    // Get current character when switched
+    public void SwitchCharacter(string currentChar)
+    {
+        // Stop all hitboxes
+        ResetHitboxes();
+
+        // Set currentCharacter as new switched player
+        currentCharacter = currentChar;
+        Debug.Log("BasicAtk: " + currentCharacter);
+
+        // Set current hitbox type
+        if (currentCharacter == "Golem")
+        {
+            // Set current hitbox as golem's
+            currentAttack = atkList[0];
+            // Set current attack cd as golem's
+            attackCooldown = cdList[0];
+        }
+        else if (currentCharacter == "Butcher")
+        {
+            // Set current hitbox type as butcher's
+            currentAttack = atkList[1];
+            // Set current attack cd as butcher's
+            attackCooldown = cdList[1];
+        }
+        else if (currentCharacter == "Slinger")
+        {
+            // Set current hitbox type as slinger's
+            currentAttack = atkList[2];
+            // Set current attack cd as slinger's
+            attackCooldown = cdList[2];
+        }
+    }
+
     // Attack active
     private IEnumerator GolemAtkActive()
     {
         // Set player attacking as true
         attacking = true;
         // Carry out player attack 
-        golemAttack.SetActive(attacking);
+        currentAttack.SetActive(attacking);
 
         // Face the attack to the direction
-        golemAttack.transform.LookAt(pointDir);
+        currentAttack.transform.LookAt(transform.position + pointDir);
 
         // Active frames for attack
         yield return new WaitForSeconds(attackActive);
         // Set player attacking as false
         attacking = false;
         // Stop player attack 
-        golemAttack.SetActive(attacking);
+        currentAttack.SetActive(attacking);
 
         Debug.Log("Attacked!");
 
@@ -129,16 +182,25 @@ public class BasicAtk : MonoBehaviour
         // Draw Ray
         // Get the current position of the mouse
         Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 10f;
 
-        // Set the mouse position based on screen to world point
-        mousePos = cam.ScreenToWorldPoint(mousePos);
-        // Get direction for top down only
-        Vector3 directionOnly = new Vector3(mousePos.x, transform.position.y, mousePos.z);
-        // Get initial direction
-        Vector3 initPointDir = directionOnly - transform.position;
-        // Set final position
-        pointDir = new Vector3(initPointDir.x, transform.position.y, initPointDir.z);
-        //Debug.DrawLine(transform.position, pointDir, Color.red, 5f);
+        // Create a virtual plane at the player's Y level
+        // This plane will act as a new "floor" for the player to be able to point at at all time
+        Plane groundPlane = new Plane(Vector3.up, new Vector3(0, transform.position.y, 0));
+
+        // Get the world position based on where mouse is on the plane
+        Ray ray = cam.ScreenPointToRay(mousePos);
+        // Fire raycast ray
+        if (groundPlane.Raycast(ray, out float hitdata))
+        {
+            // Get the world position
+            Vector3 worldPos = ray.GetPoint(hitdata);
+        
+            // Get end point vector3 for top down only
+            Vector3 endPoint = new Vector3(worldPos.x, transform.position.y, worldPos.z);
+            // Get direction: Destination - Source
+            pointDir = endPoint - transform.position;
+
+            Debug.DrawLine(transform.position, endPoint, Color.red, 5f);
+        }
     }
 }

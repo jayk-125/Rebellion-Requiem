@@ -24,13 +24,31 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PointPosition",
-                    "type": "Value",
-                    "id": "0ec78370-91cb-4cd9-a4be-63a746396a5e",
-                    "expectedControlType": "Vector2",
+                    "name": "SwitchG",
+                    "type": "Button",
+                    "id": "52dcf8c7-c6ab-4db9-b1c6-8ebdf80711e8",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwitchB",
+                    "type": "Button",
+                    "id": "aef4e753-2b76-496b-b305-9a2dc56e6452",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwitchS",
+                    "type": "Button",
+                    "id": "cb9eb77e-4015-4b0f-a708-e154618430c8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -113,12 +131,34 @@
                 },
                 {
                     "name": "",
-                    "id": "e2d1ed78-be98-4e7c-9a40-f5f186ff8206",
-                    "path": "<Mouse>/position",
+                    "id": "7875449a-b767-4bd4-aaa1-7b41b46938b1",
+                    "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PointPosition",
+                    "action": "SwitchG",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3984c6fd-e8b7-4a79-82f5-115c9740bee5",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7fb94db7-5951-43e7-9da4-40fd8e8f2920",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchS",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
