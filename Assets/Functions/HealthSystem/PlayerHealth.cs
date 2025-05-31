@@ -42,25 +42,25 @@ public class PlayerHealth : MonoBehaviour
     }
 
     // When player hits something
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         // If it is under dmg class
-        if (collision.gameObject.CompareTag("Damage"))
+        if (other.gameObject.CompareTag("Damage"))
         {
             // Check if player currently has i-frames
             if (!allowIFrames)
             {
                 Debug.Log("Incoming dmg!");
                 // Player takes dmg
-                PlayerDamage(collision.gameObject);
+                PlayerDamage(other.gameObject);
                 // Player gets knocked back
-                KnockbackPlayer(collision.gameObject);
+                KnockbackPlayer(other.gameObject);
             }
             else
             {
                 Debug.Log("i-frames!");
                 // Player gets knocked back
-                KnockbackPlayer(collision.gameObject);
+                KnockbackPlayer(other.gameObject);
             }
         }
     }
@@ -99,6 +99,11 @@ public class PlayerHealth : MonoBehaviour
         healthValue -= dmg;
         // Update the player's current hp
         UpdateHealthValue();
+
+        if (hurtingObj.gameObject.GetComponent<HurtingObject>().type == "Projectile")
+        {
+            Destroy(hurtingObj.gameObject);
+        }
 
         // If player out of health
         if (healthValue <= 0)
