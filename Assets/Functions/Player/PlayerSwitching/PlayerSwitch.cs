@@ -1,9 +1,11 @@
 /* 
- * Author: Loh Shau Ern Shaun
- * Date: 25/5/2025
+ * Author: Loh Shau Ern , Jaykin Lee
+ * Date Created: 25/5/2025
+ * Date Updated: 4/6/2025
  * Player switching character models
  * Handles player switching
  * Changes player attack type based on current character
+ * Changes UI elements based on current character
  */
 
 using System.Collections;
@@ -22,6 +24,10 @@ public class PlayerSwitch : MonoBehaviour
     public string currentState;
     // Reference player Basic Attack script
     private BasicAtk basicAtk;
+
+    // Array containing UI Assets
+    [SerializeField]
+    private GameObject[] uiArray;
 
     // Awake is called before the first frame update, when the scene is loaded
     void Awake()
@@ -103,4 +109,5 @@ public class PlayerSwitch : MonoBehaviour
         // Set the current basic attack to newly switched character
         basicAtk.SwitchCharacter(currentState);
     }
+
 }
