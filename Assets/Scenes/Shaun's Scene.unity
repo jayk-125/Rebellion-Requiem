@@ -1068,6 +1068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4423084fd532a4a40ad338b0c23af6b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 802576268}
   delay: 0.15
   strength: 25
 --- !u!4 &612339851
@@ -1776,8 +1777,10 @@ GameObject:
   - component: {fileID: 802576274}
   - component: {fileID: 802576276}
   - component: {fileID: 802576275}
+  - component: {fileID: 802576280}
   - component: {fileID: 802576277}
   - component: {fileID: 802576278}
+  - component: {fileID: 802576279}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1938,6 +1941,30 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: cb9eb77e-4015-4b0f-a708-e154618430c8
     m_ActionName: Player/SwitchS[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 802576279}
+        m_TargetAssemblyTypeName: DashDodge, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7841f332-0ee9-4f96-80cb-dd0423dd1e06
+    m_ActionName: Player/Dash[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 63f1913b-76f3-4aae-b965-6d11a8c2029f
+    m_ActionName: Player/Ability1[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 14949973-3502-4f58-8470-8c0e3688df8c
+    m_ActionName: Player/Ability2[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1956,6 +1983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  allowMove: 1
 --- !u!54 &802576275
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2000,6 +2028,7 @@ MonoBehaviour:
   healthText: {fileID: 1946214180}
   iFrameTime: 0.8
   allowIFrames: 0
+  allowKB: 1
   kbOnHurt: {fileID: 612339850}
 --- !u!114 &802576277
 MonoBehaviour:
@@ -2021,10 +2050,10 @@ MonoBehaviour:
   - 0.55
   - 0.2
   - 0.75
-  cam: {fileID: 1943501381}
   allowAtk: 1
   continuousAtk: 0
   attackCooldown: 0.55
+  pointingDirection: {fileID: 802576280}
 --- !u!114 &802576278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2042,6 +2071,41 @@ MonoBehaviour:
   - {fileID: 1064667437}
   - {fileID: 2010515672}
   currentState: 
+  uiArray: []
+--- !u!114 &802576279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802576268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d426a4ba2e58b247bb82733e7827cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 802576276}
+  basicAtk: {fileID: 802576277}
+  pointingDirection: {fileID: 802576280}
+  movement: {fileID: 802576274}
+  rb: {fileID: 802576275}
+  dodgePower: 60
+  dodgeTime: 0.35
+  dodgeCD: 0.65
+--- !u!114 &802576280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802576268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d6799cf790d7c347bc01d5791c97595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointDir: {x: 0, y: 0, z: 0}
+  cam: {fileID: 1943501381}
 --- !u!1 &845274856
 GameObject:
   m_ObjectHideFlags: 0
@@ -2304,7 +2368,7 @@ GameObject:
   - component: {fileID: 924265422}
   - component: {fileID: 924265421}
   m_Layer: 0
-  m_Name: RangedEnemy
+  m_Name: ArcherEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2391,7 +2455,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &924265425
 BoxCollider:
@@ -2611,7 +2675,7 @@ GameObject:
   - component: {fileID: 1012424950}
   - component: {fileID: 1012424949}
   m_Layer: 0
-  m_Name: RushEnemy
+  m_Name: KnightEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2655,7 +2719,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &1012424945
 BoxCollider:
@@ -2735,6 +2799,34 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!1 &1014629684 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1154532490494219439, guid: adb6edf056d425f4793c4e7a76507358,
+    type: 3}
+  m_PrefabInstance: {fileID: 1063866525}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1014629685
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014629684}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8108563764783910780, guid: 9a076cc43974bd44faa0a31000eedd2a, type: 3}
 --- !u!1 &1023637567
 GameObject:
   m_ObjectHideFlags: 0
@@ -2924,6 +3016,83 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1059470229}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1063866525
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1154532490494219439, guid: adb6edf056d425f4793c4e7a76507358,
+        type: 3}
+      propertyPath: m_Name
+      value: barrel_Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154532490494219439, guid: adb6edf056d425f4793c4e7a76507358,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967626096341831189, guid: adb6edf056d425f4793c4e7a76507358,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.3405266
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967626096341831189, guid: adb6edf056d425f4793c4e7a76507358,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.698
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967626096341831189, guid: adb6edf056d425f4793c4e7a76507358,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.99889183
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967626096341831189, guid: adb6edf056d425f4793c4e7a76507358,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967626096341831189, guid: adb6edf056d425f4793c4e7a76507358,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -2.16489e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967626096341831189, guid: adb6edf056d425f4793c4e7a76507358,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967626096341831189, guid: adb6edf056d425f4793c4e7a76507358,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -2.1648897e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967626096341831189, guid: adb6edf056d425f4793c4e7a76507358,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967626096341831189, guid: adb6edf056d425f4793c4e7a76507358,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967626096341831189, guid: adb6edf056d425f4793c4e7a76507358,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1154532490494219439, guid: adb6edf056d425f4793c4e7a76507358,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1014629685}
+  m_SourcePrefab: {fileID: 100100000, guid: adb6edf056d425f4793c4e7a76507358, type: 3}
 --- !u!1 &1064667437
 GameObject:
   m_ObjectHideFlags: 0
@@ -5792,7 +5961,7 @@ GameObject:
   - component: {fileID: 1988765647}
   - component: {fileID: 1988765646}
   m_Layer: 0
-  m_Name: LongEnemy
+  m_Name: SpearmanEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5876,7 +6045,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &1988765650
 BoxCollider:
@@ -6350,6 +6519,7 @@ SceneRoots:
   - {fileID: 802576272}
   - {fileID: 1589802731}
   - {fileID: 1755020458}
+  - {fileID: 1063866525}
   - {fileID: 914413477}
   - {fileID: 924265426}
   - {fileID: 1012424948}

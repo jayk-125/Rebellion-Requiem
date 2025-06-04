@@ -14,7 +14,8 @@ public class Movement : MonoBehaviour
 {
     // Controls speed of character
     public float speed = 10f;
-
+    // Allow player movement
+    public bool allowMove = true;
     // Takes all directional inputs
     private Vector2 move;
 
@@ -34,8 +35,16 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Move the player every frame
-        movePlayer();
+        // If moving allowed
+        if (allowMove)
+        {
+            // Move the player every frame
+            movePlayer();
+        }
+        else
+        {
+            Debug.Log("Stopped");
+        }
     }
 
     // Every frame, move the player
@@ -53,5 +62,18 @@ public class Movement : MonoBehaviour
         
         // Translate directional movement in character movement (direction * speed)
         transform.Translate(movement * speed * Time.deltaTime, Space.World);
+    }
+
+    // When called, stop player from moving
+    public IEnumerator DisableMovement(float time)
+    {
+        Debug.Log("Disabling for " + time);
+        // Disallow taking dmg
+        allowMove = false;
+        // Wait for a little
+        yield return new WaitForSeconds(time);
+        // Allow taking dmg again
+        allowMove = true;
+        Debug.Log("Continue");
     }
 }

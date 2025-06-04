@@ -4,6 +4,7 @@
  * Date Updated: 19/5/2025
  * Updates player health to how much they currently have
  * Handles calling other effects when taking dmg (EG: Knockback, i-frames)
+ * I-frames are done here
  * When reaching 0, reset the scene
  */
 
@@ -29,6 +30,8 @@ public class PlayerHealth : MonoBehaviour
     public float iFrameTime = 0.8f;
     // Reference to i-frame status
     public bool allowIFrames = false;
+    // Reference to kb status
+    public bool allowKB = true;
 
     // Reference to kb on hurt script
     [SerializeField]
@@ -116,20 +119,35 @@ public class PlayerHealth : MonoBehaviour
     // Knock the player back
     private void KnockbackPlayer(GameObject hurtingObj)
     {
-        // Play the kb on hurt effect with player and hurting obj as arguments
-        kbOnHurt.HurtKnockback(gameObject, hurtingObj);
+        // If KB is allowed
+        if (allowKB)
+        {
+            // Play the kb on hurt effect with player and hurting obj as arguments
+            kbOnHurt.HurtKnockback(gameObject, hurtingObj);
 
-        // Trigger i-frames
-        StartCoroutine(HurtInvincibility());
+            // Trigger i-frames
+            StartCoroutine(HurtInvincibility(iFrameTime));
+        }
+    }
+
+    // Start kb immune timer
+    public IEnumerator KBImmune(float time)
+    {
+        // Disallow taking dmg
+        allowKB = false;
+        // Wait for a little
+        yield return new WaitForSeconds(time);
+        // Allow taking dmg again
+        allowKB = true;
     }
 
     // Start i-frame timer
-    private IEnumerator HurtInvincibility()
+    public IEnumerator HurtInvincibility(float time)
     {
         // Disallow taking dmg
         allowIFrames = true;
         // Wait for a little
-        yield return new WaitForSeconds(iFrameTime);
+        yield return new WaitForSeconds(time);
         // Allow taking dmg again
         allowIFrames = false;
     }

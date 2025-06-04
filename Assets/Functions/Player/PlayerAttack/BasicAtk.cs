@@ -22,8 +22,6 @@ public class BasicAtk : MonoBehaviour
     private float[] cdList;
     // Reference to golem hitbox object
     private GameObject currentAttack;
-    // Reference player camera
-    public Camera cam;
 
     // Reference the current character
     private string currentCharacter;
@@ -41,7 +39,7 @@ public class BasicAtk : MonoBehaviour
     public float attackCooldown = 0.55f;
 
     // Direction of mouse from player
-    private Vector3 pointDir;
+    public PointingDirection pointingDirection;
 
     // Start is called before the first frame update
     void Start()
@@ -59,8 +57,6 @@ public class BasicAtk : MonoBehaviour
             // Keep on attacking
             KeepAttacking();
         }
-        // Every frame, get current player direction
-        TurnToPoint();
     }
     
     // When player attacks, give arguments of current click state
@@ -94,7 +90,7 @@ public class BasicAtk : MonoBehaviour
             allowAtk = false;
 
             // Attack cooldown
-            StartCoroutine(GolemAtkActive());
+            StartCoroutine(AtkActive());
         }
     }
 
@@ -144,13 +140,15 @@ public class BasicAtk : MonoBehaviour
     }
 
     // Attack active
-    private IEnumerator GolemAtkActive()
+    private IEnumerator AtkActive()
     {
         // Set player attacking as true
         attacking = true;
         // Carry out player attack 
         currentAttack.SetActive(attacking);
 
+        // Get current pointing direction
+        Vector3 pointDir = pointingDirection.pointDir;
         // Face the attack to the direction
         currentAttack.transform.LookAt(transform.position + pointDir);
 
@@ -164,11 +162,11 @@ public class BasicAtk : MonoBehaviour
         Debug.Log("Attacked!");
 
         // Start attack cd
-        StartCoroutine(GolemAtkCd());
+        StartCoroutine(AtkCd());
     }
 
     // Attack cooldown
-    private IEnumerator GolemAtkCd()
+    private IEnumerator AtkCd()
     {
         // Play attack cooldown
         yield return new WaitForSeconds(attackCooldown);
@@ -176,31 +174,18 @@ public class BasicAtk : MonoBehaviour
         allowAtk = true;
     }
 
-    // Get player direction
-    private void TurnToPoint()
+    // Start atk disabler timer
+    public IEnumerator AtkDisable(float time)
     {
-        // Draw Ray
-        // Get the current position of the mouse
-        Vector3 mousePos = Input.mousePosition;
-
-        // Create a virtual plane at the player's Y level
-        // This plane will act as a new "floor" for the player to be able to point at at all time
-        Plane groundPlane = new Plane(Vector3.up, new Vector3(0, transform.position.y, 0));
-
-        // Get the world position based on where mouse is on the plane
-        Ray ray = cam.ScreenPointToRay(mousePos);
-        // Fire raycast ray
-        if (groundPlane.Raycast(ray, out float hitdata))
-        {
-            // Get the world position
-            Vector3 worldPos = ray.GetPoint(hitdata);
-        
-            // Get end point vector3 for top down only
-            Vector3 endPoint = new Vector3(worldPos.x, transform.position.y, worldPos.z);
-            // Get direction: Destination - Source
-            pointDir = endPoint - transform.position;
-
-            Debug.DrawLine(transform.position, endPoint, Color.red, 5f);
-        }
+        // Stop all coroutines
+        StopAllCoroutines();
+        // Disable all hitboxes
+        ResetHitboxes();
+        // Disallow taking dmg
+        allowAtk = false;
+        // Wait for a little
+        yield return new WaitForSeconds(time);
+        // Allow taking dmg again
+        allowAtk = true;
     }
 }

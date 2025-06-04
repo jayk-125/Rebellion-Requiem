@@ -1,3 +1,11 @@
+/* 
+ * Author: Loh Shau Ern Shaun
+ * Date: 30/5/2025
+ * Handles AI for the rushing enemy
+ * Enemy will stop to attack when near enough player
+ * Also handles enemy stunning
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +50,9 @@ public class RushEnemyChase : MonoBehaviour
         // If agent can chase player
         if (allowChase)
         {
+            // Allow enemy to move
+            enemy.isStopped = false;
+
             // Lets enemy chase after player
             enemy.SetDestination(playerTarget.position);
             // Always look at the player
@@ -54,6 +65,12 @@ public class RushEnemyChase : MonoBehaviour
                 // Start enemy attack
                 EnemyAttack();
             }
+        }
+        // If cannot move
+        else
+        {
+            // Stop the enemy from moving
+            enemy.ResetPath();
         }
     }
 

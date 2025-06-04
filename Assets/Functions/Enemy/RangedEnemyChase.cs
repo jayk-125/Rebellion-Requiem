@@ -1,3 +1,12 @@
+/* 
+ * Author: Loh Shau Ern Shaun
+ * Date: 30/5/2025
+ * Handles AI for the ranged enemy
+ * Enemy will stop to attack when far away enough from player
+ * Enemy runs away from player when they are too close
+ * Also handles enemy stunning
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

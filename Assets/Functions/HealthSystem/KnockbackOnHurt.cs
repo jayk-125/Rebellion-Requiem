@@ -14,6 +14,8 @@ public class KnockbackOnHurt : MonoBehaviour
 {
     // Rigidbody of hurt object
     private Rigidbody rb;
+    // Reference to player object
+    public GameObject player;
 
     // Amount of time affected by knockback
     public float delay = 0.15f;
@@ -25,6 +27,49 @@ public class KnockbackOnHurt : MonoBehaviour
     {
         // Set the hurt object's rigidbody
         rb = hurtObject.GetComponent<Rigidbody>();
+
+        // Check if hurtobject is player
+        if (hurtObject == player) 
+        {
+            // Disable player from actions here
+            // Disable movement
+            Movement movement = player.GetComponent<Movement>();
+            StartCoroutine(movement.DisableMovement(0.25f));
+            // Disable basic atk
+            BasicAtk basicAtk = player.GetComponent<BasicAtk>();
+            StartCoroutine(basicAtk.AtkDisable(0.25f));
+        }
+        // Check if hurt object is enemy
+        else if (hurtObject.CompareTag("Enemy"))
+        {
+            // Apply stun when hitting enemy for a while
+            try
+            {
+                Debug.Log("Trying rush stun");
+                StartCoroutine(hurtObject.GetComponent<RushEnemyChase>().RushEnemyStunned(delay + 0.2f));
+            }
+            catch
+            {
+                try
+                {
+                    Debug.Log("Trying long stun");
+                    StartCoroutine(hurtObject.GetComponent<LongEnemyChase>().LongEnemyStunned(delay + 0.2f));
+                }
+                catch
+                {
+                    try
+                    {
+                        Debug.Log("Trying ranged stun");
+                        StartCoroutine(hurtObject.GetComponent<RangedEnemyChase>().RangedEnemyStunned(delay + 0.2f));
+                    }
+                    catch
+                    {
+                        Debug.Log("huh");
+                    }
+                }
+            }
+        }
+
         // Play the kb effect
         PlayFeedback(hurtObject,sender);
     }
@@ -33,7 +78,7 @@ public class KnockbackOnHurt : MonoBehaviour
     public void PlayFeedback(GameObject hurtObject, GameObject sender)
     {
         // Stop all other coroutines
-        StopAllCoroutines();
+        StopCoroutine(Reset());
 
         // Set the kb direction and power
         Vector3 kbDir = (hurtObject.transform.position - sender.transform.position).normalized;
