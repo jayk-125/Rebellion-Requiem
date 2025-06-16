@@ -1,6 +1,7 @@
 /* 
- * Author: Loh Shau Ern Shaun
- * Date: 13/5/2025
+ * Author: Loh Shau Ern Shaun, Jaykin Lee
+ * Date Created: 13/5/2025
+ * Date Updated: 16/6/2025
  * Keeps note of all teleportable rooms
  * Randomly teleports to certain room when initiated
  * Removes room after teleported to
@@ -16,6 +17,8 @@ public class TeleportPads : MonoBehaviour
     public List<GameObject> usableTeleports;
     // Reference camera controller
     private CameraController cameraController;
+    //Checks if the player is in combat or not (might be added later)
+    //public bool InCombat = false;
 
     // Awake is called when scene is opened
     void Awake()
@@ -27,9 +30,9 @@ public class TeleportPads : MonoBehaviour
     // When called to teleport to random room
     public Transform CallWarpRandom()
     {
-        // Get total number of rooms
+        // Get total number of roomstest
         int roomNum = usableTeleports.Count;
-        Debug.Log("Remaining rooms "+roomNum);
+        Debug.Log("Remaining rooms " + roomNum);
 
         //Initialize randRoomNum
         int randRoomNum;
@@ -40,19 +43,44 @@ public class TeleportPads : MonoBehaviour
             randRoomNum = Random.Range(1, roomNum);
         }
         // If 1 left
-        else 
+        else
         {
             // Set last room
             randRoomNum = 1;
         }
 
         // Get the corresponding room element
-        GameObject roomLocation = usableTeleports[randRoomNum-1];
+        GameObject roomLocation = usableTeleports[randRoomNum - 1];
         // Move camera borders
-        cameraController.SetCameraBorders(roomLocation,false);
+        cameraController.SetCameraBorders(roomLocation, false);
         // Remove the room from list
         usableTeleports.Remove(roomLocation);
+
+        // Finds all teleporters, putting them in a list
+        GameObject[] teleporters = GameObject.FindGameObjectsWithTag("Teleporter");
+        // Locks room until all enemies are cleared (if shops/safe zones are added, will expand on this)
+        foreach (GameObject teleporter in teleporters)
+        {
+            teleporter.SetActive(false);
+            Debug.Log("teleporters have been deactivated");
+        }
+
+
+        Debug.Log("InCombat is true");
         // Return the room destination
         return roomLocation.transform;
+    }
+    public void OnSafe()
+    {
+        GameObject[] inactiveteleporters = Resources.FindObjectsOfTypeAll<GameObject>();
+
+        foreach (GameObject obj in inactiveteleporters)
+        {
+            // Only process objects that are not hidden and match the tag
+            if (obj.CompareTag("Teleporter") && !obj.activeInHierarchy && obj.hideFlags == HideFlags.None)
+            {
+                obj.SetActive(true);
+            }
+        }
     }
 }

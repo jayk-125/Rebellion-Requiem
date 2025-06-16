@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02e4fce13f1c5194b97ee5428bbc9eba, type: 3}
+  m_Name: Slinger
+  m_EditorClassIdentifier: 
+  characterName: Slinger
+  characterUI:
+  - {fileID: 21300000, guid: 9f2cedf45de34bc42a6926fdb313f473, type: 3}
+  - {fileID: 21300000, guid: d3930b236acb2584fb3bab23aa4c634a, type: 3}

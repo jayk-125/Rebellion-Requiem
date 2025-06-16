@@ -5,7 +5,7 @@
  * Player switching character models
  * Handles player switching
  * Changes player attack type based on current character
- * Changes UI elements based on current character
+ * Sends out info to change the main game's UI
  */
 
 using System.Collections;
@@ -17,17 +17,13 @@ public class PlayerSwitch : MonoBehaviour
 {
     // Array containing player models
     [SerializeField]
-    private GameObject[] characterArray;
+    public GameObject[] characterArray;
     // Get the current character
     private GameObject currentCharacter;
     // Current character state
     public string currentState;
     // Reference player Basic Attack script
     private BasicAtk basicAtk;
-
-    // Array containing UI Assets
-    [SerializeField]
-    private GameObject[] uiArray;
 
     // Awake is called before the first frame update, when the scene is loaded
     void Awake()
