@@ -22,14 +22,30 @@ public class PlayerSwitch : MonoBehaviour
     private GameObject currentCharacter;
     // Current character state
     public string currentState;
+
     // Reference player Basic Attack script
     private BasicAtk basicAtk;
+    // Reference player Skill1Select script
+    private Skill1Select skill1Select;
 
-    // Awake is called before the first frame update, when the scene is loaded
+    // Bool to allow player switching
+    private bool allowSwitch = true;
+
+    // Awake is called before the scene is loaded
     void Awake()
     {
         // Set player basic attack script
         basicAtk = gameObject.GetComponent<BasicAtk>();
+        // Set player skill 1 select script
+        skill1Select = gameObject.transform.GetChild(1).GetComponent<Skill1Select>();
+        // Set player skill 2 select script
+        //skill2Select = gameObject.transform.GetChild(2).GetComponent<Skill2Select>();
+    }
+
+    // Start is called before the first frame update, when the scene is loaded
+    // There WILL be an error if this is put together with awake, so this needs to be put in Start instead
+    void Start()
+    {
         // Set player as Golem
         // Reset all models
         ResetSwitchStates();
@@ -37,6 +53,63 @@ public class PlayerSwitch : MonoBehaviour
         currentCharacter = characterArray[0];
         // Do the switch
         SwitchEnd();
+    }
+
+    // When player is switched to Golem
+    public void OnSwitchGolem(InputAction.CallbackContext context)
+    {
+        // When current button phase is performed
+        if (context.phase == InputActionPhase.Performed)
+        {
+            // If player can switch
+            if (allowSwitch)
+            {
+                // Reset all models
+                ResetSwitchStates();
+                // Set current gameobject model 
+                currentCharacter = characterArray[0];
+                // Do the switch
+                SwitchEnd();
+            }
+        }
+    }
+
+    // When player is switched to Butcher
+    public void OnSwitchButcher(InputAction.CallbackContext context)
+    {
+        // When current button phase is performed
+        if (context.phase == InputActionPhase.Performed)
+        {
+            // If player can switch
+            if (allowSwitch)
+            {
+                // Reset all models
+                ResetSwitchStates();
+                // Set current gameobject model 
+                currentCharacter = characterArray[1];
+                // Do the switch
+                SwitchEnd();
+            }
+        }
+    }
+
+    // When player is switched to Golem
+    public void OnSwitchSlinger(InputAction.CallbackContext context)
+    {
+        // When current button phase is performed
+        if (context.phase == InputActionPhase.Performed)
+        {
+            // If player can switch
+            if (allowSwitch)
+            {
+                // Reset all models
+                ResetSwitchStates();
+                // Set current gameobject model 
+                currentCharacter = characterArray[2];
+                // Do the switch
+                SwitchEnd();
+            }
+        }
     }
 
     // Reset the current character
@@ -50,51 +123,6 @@ public class PlayerSwitch : MonoBehaviour
         }
     }
 
-    // When player is switched to Golem
-    public void OnSwitchGolem(InputAction.CallbackContext context)
-    {
-        // When current button phase is performed
-        if (context.phase == InputActionPhase.Performed)
-        {
-            // Reset all models
-            ResetSwitchStates();
-            // Set current gameobject model 
-            currentCharacter = characterArray[0];
-            // Do the switch
-            SwitchEnd();
-        }
-    }
-
-    // When player is switched to Butcher
-    public void OnSwitchButcher(InputAction.CallbackContext context)
-    {
-        // When current button phase is performed
-        if (context.phase == InputActionPhase.Performed)
-        {
-            // Reset all models
-            ResetSwitchStates();
-            // Set current gameobject model 
-            currentCharacter = characterArray[1];
-            // Do the switch
-            SwitchEnd();
-        }
-    }
-
-    // When player is switched to Golem
-    public void OnSwitchSlinger(InputAction.CallbackContext context)
-    {
-        // When current button phase is performed
-        if (context.phase == InputActionPhase.Performed)
-        {
-            // Reset all models
-            ResetSwitchStates();
-            // Set current gameobject model 
-            currentCharacter = characterArray[2];
-            // Do the switch
-            SwitchEnd();
-        }
-    }
-
     // Last part of the switch
     private void SwitchEnd()
     {
@@ -102,8 +130,23 @@ public class PlayerSwitch : MonoBehaviour
         currentCharacter.SetActive(true);
         // Set current character state
         currentState = currentCharacter.name;
+
         // Set the current basic attack to newly switched character
         basicAtk.SwitchCharacter(currentState);
+        // Set the current skill 1 to newly switched character
+        skill1Select.SwitchCharacter(currentState);
     }
 
+    // Disallow switching
+    public void SwitchDisableStart()
+    {
+        // Set switching to false
+        allowSwitch = false;
+    }
+    // Allow switching
+    public void SwitchDisableStop()
+    {
+        // Set switching to true
+        allowSwitch = true;
+    }
 }

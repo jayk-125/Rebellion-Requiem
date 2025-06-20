@@ -137,4 +137,36 @@ public class CameraController : MonoBehaviour
             transform.position = new Vector3(teleStart.position.x, transform.position.y, teleStart.position.z);
         }
     }
+
+    // Called when a teleport within a room is done
+    public void MoveCamera(Vector3 newPoint)
+    {
+        // Set new estimated camera tp point based on offset
+        newPoint.x += offset.x;
+        newPoint.y += offset.y;
+        newPoint.z += offset.z;
+
+        // Check if it goes over the current borders for x
+        if (newPoint.x > maxPosition.x)
+        {
+            newPoint.x = maxPosition.x;
+        }
+        else if (newPoint.x < minPosition.x)
+        {
+            newPoint.x = minPosition.x;
+        }
+
+        // Check if it goes over the current borders for z
+        if (newPoint.z > maxPosition.z)
+        {
+            newPoint.z = maxPosition.z;
+        }
+        else if (newPoint.z < minPosition.z)
+        {
+            newPoint.z = minPosition.z;
+        }
+
+        // Move player to this new camera tp point
+        gameObject.transform.position = newPoint;
+    }
 }

@@ -43,7 +43,7 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            Debug.Log("Stopped");
+            //Debug.Log("Stopped");
         }
     }
 
@@ -65,15 +65,15 @@ public class Movement : MonoBehaviour
     }
 
     // When called, stop player from moving
-    public IEnumerator DisableMovement(float time)
+    public void DisableMovement()
     {
-        Debug.Log("Disabling for " + time);
-        // Disallow taking dmg
+        // Disallow moving
         allowMove = false;
-        // Wait for a little
-        yield return new WaitForSeconds(time);
-        // Allow taking dmg again
+    }
+    // When called, allow player to move
+    public void EnableMovement()
+    {
+        // Allow moving
         allowMove = true;
-        Debug.Log("Continue");
     }
 }

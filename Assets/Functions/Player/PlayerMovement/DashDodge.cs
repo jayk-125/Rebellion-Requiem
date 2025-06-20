@@ -16,14 +16,11 @@ using UnityEngine.InputSystem;
 
 public class DashDodge : MonoBehaviour
 {
-    // Reference player health script
-    public PlayerHealth playerHealth;
-    // Reference player basic atk script
-    public BasicAtk basicAtk;
+    // Reference player stunned script
+    public PlayerStunned playerStunned;
     // Reference player pointing direction script
     public PointingDirection pointingDirection;
-    // Reference player movement script
-    public Movement movement;
+
     // Reference player rigidbody
     public Rigidbody rb;
 
@@ -53,14 +50,9 @@ public class DashDodge : MonoBehaviour
                 // Disallow dodging
                 allowDodge = false;
 
-                // Disallow movement
-                StartCoroutine(movement.DisableMovement(dodgeTime));
-                // Disallow attacking
-                StartCoroutine(basicAtk.AtkDisable(dodgeTime));
-                // Disallow kb
-                StartCoroutine(playerHealth.KBImmune(dodgeTime));
-                // Give i-frames
-                StartCoroutine(playerHealth.HurtInvincibility(dodgeTime));
+                // Disable player movement
+                playerStunned.PlayerActionDisableTimed(dodgeTime);
+
                 // Reset momentum
                 StartCoroutine(ResetMomentum());
             }
@@ -84,6 +76,21 @@ public class DashDodge : MonoBehaviour
         // Wait for a little
         yield return new WaitForSeconds(time);
         // Reenable dashing
+        allowDodge = true;
+    }
+
+    // Start atk disabler
+    public void DashDisableStart()
+    {
+        // Stop all coroutines
+        StopAllCoroutines();
+        // Disallow dodging
+        allowDodge = false;
+    }
+    // Stop atk disabler
+    public void DashDisableStop()
+    {
+        // Allow dodging
         allowDodge = true;
     }
 }

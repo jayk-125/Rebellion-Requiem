@@ -24,6 +24,8 @@ public class DmgHitbox : MonoBehaviour
             // Get EnemyHealth script from enemy
             // Carry out take dmg script based on stated dmg
             other.gameObject.GetComponent<EnemyHealth>().TakeDamage(dmgVal, gameObject);
+
+            Debug.Log("- " + dmgVal);
         }
     }
 }

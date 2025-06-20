@@ -130,25 +130,38 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    // Start kb immune timer
-    public IEnumerator KBImmune(float time)
+    // Start kb immune
+    public void KBImmuneStart()
     {
         // Disallow taking dmg
         allowKB = false;
-        // Wait for a little
-        yield return new WaitForSeconds(time);
+    }
+    // Stop kb immune
+    public void KBImmuneStop()
+    {
         // Allow taking dmg again
         allowKB = true;
     }
 
     // Start i-frame timer
-    public IEnumerator HurtInvincibility(float time)
+    private IEnumerator HurtInvincibility(float time)
     {
         // Disallow taking dmg
-        allowIFrames = true;
+        DmgImmuneStart();
         // Wait for a little
         yield return new WaitForSeconds(time);
         // Allow taking dmg again
+        DmgImmuneStop();
+    }
+
+    // Start i-frames
+    public void DmgImmuneStart()
+    {
+        allowIFrames = true;
+    }
+    // Stop i-frames
+    public void DmgImmuneStop()
+    {
         allowIFrames = false;
     }
 

@@ -33,11 +33,8 @@ public class KnockbackOnHurt : MonoBehaviour
         {
             // Disable player from actions here
             // Disable movement
-            Movement movement = player.GetComponent<Movement>();
-            StartCoroutine(movement.DisableMovement(0.25f));
-            // Disable basic atk
-            BasicAtk basicAtk = player.GetComponent<BasicAtk>();
-            StartCoroutine(basicAtk.AtkDisable(0.25f));
+            PlayerStunned playerStunned = player.GetComponent<PlayerStunned>();
+            StartCoroutine(playerStunned.PlayerActionDisableTimed(0.25f));
         }
         // Check if hurt object is enemy
         else if (hurtObject.CompareTag("Enemy"))

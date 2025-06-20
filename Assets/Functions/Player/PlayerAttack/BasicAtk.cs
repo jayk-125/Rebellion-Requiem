@@ -174,8 +174,8 @@ public class BasicAtk : MonoBehaviour
         allowAtk = true;
     }
 
-    // Start atk disabler timer
-    public IEnumerator AtkDisable(float time)
+    // Start atk disabler
+    public void AtkDisableStart()
     {
         // Stop all coroutines
         StopAllCoroutines();
@@ -183,9 +183,11 @@ public class BasicAtk : MonoBehaviour
         ResetHitboxes();
         // Disallow taking dmg
         allowAtk = false;
-        // Wait for a little
-        yield return new WaitForSeconds(time);
-        // Allow taking dmg again
+    }
+    // Stop atk disabler
+    public void AtkDisableStop()
+    {
+        // Disallow taking dmg
         allowAtk = true;
     }
 }
