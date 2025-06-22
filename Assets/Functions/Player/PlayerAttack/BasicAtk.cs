@@ -69,12 +69,16 @@ public class BasicAtk : MonoBehaviour
         {
             // Toggle on continuous attack
             continuousAtk = true;
+            // Set as player face direction of mouse
+            pointingDirection.FaceDirection();
         }
         // If current click phase is cancelled (Button released)
         if (context.phase == InputActionPhase.Canceled)
         {
             // Toggle off continuous attack
             continuousAtk = false;
+            // Set as player no longer face direction of mouse
+            pointingDirection.StopFacing();
         }
     }
 

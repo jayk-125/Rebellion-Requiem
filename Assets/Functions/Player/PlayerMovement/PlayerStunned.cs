@@ -17,21 +17,24 @@ public class PlayerStunned : MonoBehaviour
     // Reference player skill 1 script
     public Skill1Select skill1Select;
     // Reference player skill 2 script
-    //public Skill2Select skill2Select;
+    public Skill2Select skill2Select;
 
     // When player action is disabled
     public IEnumerator PlayerActionDisableTimed(float time)
     {
         // Start player as disable
         PlayerActionDisable();
+        //Debug.Log("Disabled for " + time);
         // Time disabled
         yield return new WaitForSeconds(time);
         PlayerActionEnable();
+        //Debug.Log("Renabled");
     }
 
     // When player action is disabled
     public void PlayerActionDisable()
     {
+        //Debug.Log("Disable");
         // Disallow switching to other characters
         playerSwitch.SwitchDisableStart();
         // Disallow movement
@@ -44,7 +47,7 @@ public class PlayerStunned : MonoBehaviour
         // Disallow skill 1
         skill1Select.DisableSkill1Start();
         // Disallow skill 2
-        //skill2Select.DisableSkill2Start();
+        skill2Select.DisableSkill2Start();
 
         // Disallow kb
         playerHealth.KBImmuneStart();
@@ -55,6 +58,7 @@ public class PlayerStunned : MonoBehaviour
     // When player action is enabled
     public void PlayerActionEnable()
     {
+        //Debug.Log("Enable");
         // Disallow switching to other characters
         playerSwitch.SwitchDisableStop();
         // Disallow movement
@@ -67,11 +71,49 @@ public class PlayerStunned : MonoBehaviour
         // Disallow skill 1
         skill1Select.DisableSkill1Stop();
         // Disallow skill 2
-        //skill2Select.DisableSkill2Stop();
+        skill2Select.DisableSkill2Stop();
 
         // Disallow kb
         playerHealth.KBImmuneStop();
         // Give i-frames
         playerHealth.DmgImmuneStop();
+    }
+
+    // When player action is disabled, no invincibility
+    public void PlayerActionDisableNoIframe()
+    {
+        //Debug.Log("Disable");
+        // Disallow switching to other characters
+        playerSwitch.SwitchDisableStart();
+        // Disallow movement
+        movement.DisableMovement();
+
+        // Disallow attacking
+        basicAtk.AtkDisableStart();
+        // Disallow dash
+        dashDodge.DashDisableStart();
+        // Disallow skill 1
+        skill1Select.DisableSkill1Start();
+        // Disallow skill 2
+        skill2Select.DisableSkill2Start();
+    }
+
+    // When player action is enabled, no invicibility
+    public void PlayerActionEnableNoIframe()
+    {
+        //Debug.Log("Enable");
+        // Disallow switching to other characters
+        playerSwitch.SwitchDisableStop();
+        // Disallow movement
+        movement.EnableMovement();
+
+        // Disallow attacking
+        basicAtk.AtkDisableStop();
+        // Disallow dash
+        dashDodge.DashDisableStop();
+        // Disallow skill 1
+        skill1Select.DisableSkill1Stop();
+        // Disallow skill 2
+        skill2Select.DisableSkill2Stop();
     }
 }

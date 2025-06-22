@@ -53,7 +53,7 @@ public class PlayerHealth : MonoBehaviour
             // Check if player currently has i-frames
             if (!allowIFrames)
             {
-                Debug.Log("Incoming dmg!");
+                //Debug.Log("Incoming dmg!");
                 // Player takes dmg
                 PlayerDamage(other.gameObject);
                 // Player gets knocked back
@@ -61,7 +61,7 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
-                Debug.Log("i-frames!");
+                //Debug.Log("i-frames!");
                 // Player gets knocked back
                 KnockbackPlayer(other.gameObject);
             }

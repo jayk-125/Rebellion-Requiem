@@ -13,6 +13,8 @@ using UnityEngine;
 
 public class ButcherGrappleSkill : MonoBehaviour
 {
+    // Player object
+    public GameObject player;
     // Reference player pointing direction script
     public PointingDirection pointingDirection;
     // Reference player pointing direction script
@@ -24,8 +26,6 @@ public class ButcherGrappleSkill : MonoBehaviour
     public GameObject grappleProjectile;
     // Firing point
     public GameObject firingPoint;
-    // Player object
-    public GameObject player;
     // Reference player rigidbody
     public Rigidbody rb;
 
@@ -70,8 +70,15 @@ public class ButcherGrappleSkill : MonoBehaviour
         {
             if (startTimer)
             {
+                // Get the direction of the player
+                Vector3 direction = new Vector3(pointDirSaved.x, 0f, pointDirSaved.z);
+                // Make player face direction of saved facing direction
+                player.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 12f);
+
+                // Get player position
                 Vector3 playerPosition = player.transform.position;
                 Debug.Log(playerPosition + " " + destination);
+
                 // If player has reached position
                 if (Vector3.Distance(playerPosition, destination) <= 2f || currentTime >= maxFlyTime)
                 {
@@ -82,8 +89,6 @@ public class ButcherGrappleSkill : MonoBehaviour
                 {
                     // Increase time
                     currentTime += Time.deltaTime;
-                    // Move this to
-                    //player.transform.Translate(pointDirSaved * skillFlyPower * Time.deltaTime);
                 }
             }
         }
@@ -110,6 +115,8 @@ public class ButcherGrappleSkill : MonoBehaviour
     private void SkillActive()
     {
         // Effect of grapple
+        // Face direction for a little
+        StartCoroutine(pointingDirection.FaceForTime(skillActive));
         // Get player direction based on mouse
         pointDirSaved = pointingDirection.pointDir;
         // Fire grapple projectile in that direction

@@ -16,6 +16,8 @@ public class Movement : MonoBehaviour
     public float speed = 10f;
     // Allow player movement
     public bool allowMove = true;
+    // Allow player facing direction
+    private bool allowFace = true;
     // Takes all directional inputs
     private Vector2 move;
 
@@ -53,11 +55,15 @@ public class Movement : MonoBehaviour
         // Set the movement direction in 3D space to be based on directional influence
         Vector3 movement = new Vector3(move.x, 0f, move.y);
 
-        // Only when player input is detected
-        if (movement != Vector3.zero)
+        // When player can face direction
+        if (allowFace)
         {
-            // Make character face direction they're moving in, with a turning speed relative to player movement speed
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), speed/35);
+            // Only when player input is detected
+            if (movement != Vector3.zero)
+            {
+                // Make character face direction they're moving in, with a turning speed relative to player movement speed
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), speed/25);
+            }
         }
         
         // Translate directional movement in character movement (direction * speed)
@@ -76,4 +82,17 @@ public class Movement : MonoBehaviour
         // Allow moving
         allowMove = true;
     }
+    
+    // When called, disable player from facing direction
+    public void DisableFacing()
+    {
+        allowFace = false;
+    }
+    // When called, enable player to 
+    public void EnableFacing()
+    {
+        allowFace = true;
+    }
 }
+
+ 

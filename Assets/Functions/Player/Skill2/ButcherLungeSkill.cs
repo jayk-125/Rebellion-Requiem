@@ -1,17 +1,17 @@
 /* 
  * Author: Loh Shau Ern Shaun
- * Date: 17/6/2025
- * Golem skill 1
- * Golem does a dash that does dmg
- * Cannot be used when stunned
- * Invincible dash attack
+ * Date: 21/6/2025
+ * Butcher skill 2
+ * Butcher does a fast attack
+ * Massive hitbox
+ * Kinda moves player forward on use
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GolemDashSkill : MonoBehaviour
+public class ButcherLungeSkill : MonoBehaviour
 {
     // Reference to player object
     public GameObject player;
@@ -21,7 +21,7 @@ public class GolemDashSkill : MonoBehaviour
     public PlayerStunned playerStunned;
 
     // Dash hitbox
-    public GameObject surroundingDashHitbox;
+    public GameObject lungeHitbox;
     // Reference player rigidbody
     public Rigidbody rb;
 
@@ -31,10 +31,10 @@ public class GolemDashSkill : MonoBehaviour
     // Time skill is active for
     public float skillActive = 0.15f;
     // Dash power
-    public float skillDashPower = 80f;
+    public float skillDashPower = 30f;
     // Time skill on cd after skill
     public float skillCd = 2.0f;
-    
+
     // Reference if skill is in use
     private bool allowSkill = false;
     // Reference if cooling down
@@ -46,7 +46,7 @@ public class GolemDashSkill : MonoBehaviour
     void Start()
     {
         // Hide the surrounding hitbox
-        surroundingDashHitbox.SetActive(false);
+        lungeHitbox.SetActive(false);
     }
 
     // Update is called every frame
@@ -83,8 +83,8 @@ public class GolemDashSkill : MonoBehaviour
     private IEnumerator SkillActive()
     {
         // Carry out player attack 
-        surroundingDashHitbox.SetActive(true);
-        
+        lungeHitbox.SetActive(true);
+
         // Effect of dash
         // Get player direction based on mouse
         pointDirSaved = pointingDirection.pointDir;
@@ -94,7 +94,7 @@ public class GolemDashSkill : MonoBehaviour
         rb.AddForce(dashForce, ForceMode.Impulse);
 
         // Disable player movement
-        playerStunned.PlayerActionDisable();
+        playerStunned.PlayerActionDisableNoIframe();
 
         // Set as dashing
         isDashing = true;
@@ -111,20 +111,15 @@ public class GolemDashSkill : MonoBehaviour
     {
         // Wait for a little
         yield return new WaitForSeconds(skillActive);
-        
+
         // Stop player attack 
-        surroundingDashHitbox.SetActive(false);
-
-        //Debug.Log("Skill 1 Attacked!");
-
-        // Remove rigidbody momentum
-        rb.velocity = Vector3.zero;
+        lungeHitbox.SetActive(false);
 
         // No longer dashing
         isDashing = false;
 
         // Enable player movement
-        playerStunned.PlayerActionEnable();
+        playerStunned.PlayerActionEnableNoIframe();
 
         // Start dash cd
         StartCoroutine(SkillCd());
@@ -155,7 +150,6 @@ public class GolemDashSkill : MonoBehaviour
     // Disable this skill
     public void Disable()
     {
-        // Is not coolding down
         if (!isCoolingDown)
         {
             // Disable

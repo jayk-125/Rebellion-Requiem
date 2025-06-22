@@ -11,17 +11,32 @@ using UnityEngine;
 
 public class PointingDirection : MonoBehaviour
 {
+    // Reference player object
+    public GameObject player;
+
+    // Reference movement script
+    public Movement movement;
+
     // Direction of mouse from player
     // Refer to this for normalized player mouse direction
     public Vector3 pointDir;
     // Reference player camera
     public Camera cam;
 
+    // Check if player can look at 
+    private bool canFace;
+
     // Update is called once per frame
     void Update()
     {
         // Every frame, get current player direction
         TurnToPoint();
+
+        // Check if player is allowed to face mouse direction
+        if (canFace)
+        {
+            LookAtDirection();
+        }
     }
 
     // Get player direction
@@ -50,5 +65,46 @@ public class PointingDirection : MonoBehaviour
 
             Debug.DrawLine(transform.position, endPoint, Color.red, 5f);
         }
+    }
+
+    // Player face direction for set time
+    public IEnumerator FaceForTime(float time)
+    {
+        // Set specific position
+        Vector3 specificPos = new Vector3(pointDir.x, 0f, pointDir.z);
+
+        // Make player face a direction
+        FaceDirection();
+        // Wait for time
+        yield return new WaitForSeconds(time);
+        // Stop facing direction
+        StopFacing();
+    }
+
+    // Make player face direction
+    public void FaceDirection()
+    {
+        // Disable facing mouse based on player movement
+        movement.DisableFacing();
+        // Player can face
+        canFace = true;
+    }
+
+    // Player stop facing direction
+    public void StopFacing()
+    {
+        // Enable facing mouse based on player movement
+        movement.EnableFacing();
+        // Player cannot face
+        canFace = false;
+    }
+
+    // Direction of player mouse
+    private void LookAtDirection()
+    {
+        // Get the direction of the player
+        Vector3 direction = new Vector3(pointDir.x, 0f, pointDir.z);
+        // Make player face direction of saved facing direction
+        player.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 12f);
     }
 }

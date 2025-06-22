@@ -27,6 +27,8 @@ public class PlayerSwitch : MonoBehaviour
     private BasicAtk basicAtk;
     // Reference player Skill1Select script
     private Skill1Select skill1Select;
+    // Reference player Skill2Select script
+    private Skill2Select skill2Select;
 
     // Bool to allow player switching
     private bool allowSwitch = true;
@@ -39,7 +41,7 @@ public class PlayerSwitch : MonoBehaviour
         // Set player skill 1 select script
         skill1Select = gameObject.transform.GetChild(1).GetComponent<Skill1Select>();
         // Set player skill 2 select script
-        //skill2Select = gameObject.transform.GetChild(2).GetComponent<Skill2Select>();
+        skill2Select = gameObject.transform.GetChild(2).GetComponent<Skill2Select>();
     }
 
     // Start is called before the first frame update, when the scene is loaded
@@ -135,6 +137,8 @@ public class PlayerSwitch : MonoBehaviour
         basicAtk.SwitchCharacter(currentState);
         // Set the current skill 1 to newly switched character
         skill1Select.SwitchCharacter(currentState);
+        // Set the current skill 2 to newly switched character
+        skill2Select.SwitchCharacter(currentState);
     }
 
     // Disallow switching

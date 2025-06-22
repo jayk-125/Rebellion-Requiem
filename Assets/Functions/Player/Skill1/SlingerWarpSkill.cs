@@ -84,6 +84,9 @@ public class SlingerWarpSkill : MonoBehaviour
     private void SkillActive()
     {
         // Effect of warp projectile
+        // Face direction for a little
+        StartCoroutine(pointingDirection.FaceForTime(skillActive));
+
         // Get player direction based on mouse
         pointDirSaved = pointingDirection.pointDir;
         // Fire grapple projectile in that direction
@@ -165,6 +168,8 @@ public class SlingerWarpSkill : MonoBehaviour
     {
         // Play attack cooldown
         yield return new WaitForSeconds(skillCd);
+        // Stop bullet existence
+        bulletExists = false;
         // Allow player to attack after cooldown
         allowSkill = true;
         // No longer cooling down

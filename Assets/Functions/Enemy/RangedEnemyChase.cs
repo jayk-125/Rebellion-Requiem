@@ -100,7 +100,7 @@ public class RangedEnemyChase : MonoBehaviour
         // If enemy cannot flee
         if (!allowFlee)
         {
-            Debug.Log(tempNewPos);
+            //Debug.Log(tempNewPos);
             // Move to new area
             enemy.SetDestination(tempNewPos);
             // Until enemy finishes moves to that area
