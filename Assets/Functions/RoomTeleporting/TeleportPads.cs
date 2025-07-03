@@ -9,16 +9,24 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TeleportPads : MonoBehaviour
 {
     // List of all current unused teleporter exits
     public List<GameObject> usableTeleports;
+
+    // List of all spawners in a specific room 
+    public new List<GameObject> enemySpawner;
+
     // Reference camera controller
     private CameraController cameraController;
     //Checks if the player is in combat or not (might be added later)
     //public bool InCombat = false;
+
+    // Number of Enemies that are spawned in
+    private int presentEnemies = 0;
 
     // Awake is called when scene is opened
     void Awake()
@@ -50,27 +58,57 @@ public class TeleportPads : MonoBehaviour
         }
 
         // Get the corresponding room element
-        GameObject roomLocation = usableTeleports[randRoomNum - 1];
+        GameObject childReference = usableTeleports[randRoomNum - 1];
+        //Get the room's teleport exit
+        GameObject roomLocation = childReference.transform.Find("TP_Exit").gameObject;
         // Move camera borders
         cameraController.SetCameraBorders(roomLocation, false);
         // Remove the room from list
         usableTeleports.Remove(roomLocation);
 
-        // Finds all teleporters, putting them in a list
-        GameObject[] teleporters = GameObject.FindGameObjectsWithTag("Teleporter");
-        // Locks room until all enemies are cleared (if shops/safe zones are added, will expand on this)
-        foreach (GameObject teleporter in teleporters)
+        // Gets Enemy Spawners from specific room and put them in a list, then spawn enemies
+        foreach (Transform child in childReference.transform)
         {
-            teleporter.SetActive(false);
-            Debug.Log("teleporters have been deactivated");
+            if (child.CompareTag("Spawner"))
+            {
+                enemySpawner.Add(child.gameObject);
+                // spawns enemies
+                child.gameObject.GetComponent<EnemySpawning>();
+                presentEnemies += 1;
+            }
         }
 
 
-        Debug.Log("InCombat is true");
+        if (enemySpawner.Count != 0)//if there are enemy spawners
+        {
+            // Finds all teleporters, putting them in a list
+            GameObject[] teleporters = GameObject.FindGameObjectsWithTag("Teleporter");
+            // Locks room until all enemies are cleared (if shops/safe zones are added, will expand on this)
+            foreach (GameObject teleporter in teleporters)
+            {
+                teleporter.SetActive(false);
+                Debug.Log("teleporters have been deactivated");
+            }
+            Debug.Log("InCombat is true");
+        }
+
         // Return the room destination
         return roomLocation.transform;
     }
-    public void OnSafe()
+
+    // When an enemy dies, their count decreases
+    public void ReduceEnemyCount()
+    {
+        presentEnemies -= 1;
+        // If there are no more enemies, runs OnSafe()
+        if (presentEnemies == 0)
+        {
+            OnSafe();
+        }
+    }
+
+    // Reopens teleporters
+    private void OnSafe()
     {
         GameObject[] inactiveteleporters = Resources.FindObjectsOfTypeAll<GameObject>();
 
