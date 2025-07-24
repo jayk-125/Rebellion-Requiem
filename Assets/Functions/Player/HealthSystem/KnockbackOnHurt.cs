@@ -17,6 +17,9 @@ public class KnockbackOnHurt : MonoBehaviour
     // Reference to player object
     public GameObject player;
 
+    // Allow kb effect
+    private bool allowKB;
+
     // Amount of time affected by knockback
     public float delay = 0.15f;
     // Strength of knockback
@@ -44,6 +47,7 @@ public class KnockbackOnHurt : MonoBehaviour
             {
                 Debug.Log("Trying rush stun");
                 StartCoroutine(hurtObject.GetComponent<RushEnemyChase>().RushEnemyStunned(delay + 0.2f));
+                allowKB = true;
             }
             catch
             {
@@ -51,6 +55,7 @@ public class KnockbackOnHurt : MonoBehaviour
                 {
                     Debug.Log("Trying long stun");
                     StartCoroutine(hurtObject.GetComponent<LongEnemyChase>().LongEnemyStunned(delay + 0.2f));
+                    allowKB = true;
                 }
                 catch
                 {
@@ -58,17 +63,22 @@ public class KnockbackOnHurt : MonoBehaviour
                     {
                         Debug.Log("Trying ranged stun");
                         StartCoroutine(hurtObject.GetComponent<RangedEnemyChase>().RangedEnemyStunned(delay + 0.2f));
+                        allowKB = true;
                     }
                     catch
                     {
                         Debug.Log("huh");
+                        allowKB = false;
                     }
                 }
             }
         }
 
-        // Play the kb effect
-        PlayFeedback(hurtObject,sender);
+        if (allowKB)
+        {
+            // Play the kb effect
+            PlayFeedback(hurtObject, sender);
+        }
     }
 
     // Play the kb effect

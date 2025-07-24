@@ -17,12 +17,14 @@ public class EnemyHealth : MonoBehaviour
 
     // Reference to kb on hurt script
     private KnockbackOnHurt kbOnHurt;
-    // Reference to rush enemy chase script
+    // Reference to knight enemy chase script
     private RushEnemyChase rushEnemyChase;
-    // Reference to mid range enemy chase script
+    // Reference to spearman range enemy chase script
     private LongEnemyChase longEnemyChase;
-    // Reference to kb on hurt script
+    // Reference to archer enemy chase script
     private RangedEnemyChase rangedEnemyChase;
+    // Reference to evil king behaviour script
+    private EvilKingBehaviour evilKingBehaviour;
 
     // When scene is called
     void Awake()
@@ -48,6 +50,7 @@ public class EnemyHealth : MonoBehaviour
             rushEnemyChase = gameObject.GetComponent<RushEnemyChase>();
             longEnemyChase = gameObject.GetComponent<LongEnemyChase>();
             rangedEnemyChase = gameObject.GetComponent<RangedEnemyChase>();
+            evilKingBehaviour = gameObject.GetComponent<EvilKingBehaviour>();
             // Find the script that was not empty
             if (rushEnemyChase != null)
             {
@@ -63,6 +66,15 @@ public class EnemyHealth : MonoBehaviour
             {
                 // Stun for 0.5 seconds
                 rangedEnemyChase.RangedEnemyStunned(0.5f);
+            }
+            else if (evilKingBehaviour != null)
+            {
+                // Check if below half
+                if (health <= 250)
+                {
+                    // Set the change phase as true
+                    evilKingBehaviour.currentPhase = "Phase2";
+                }
             }
             // Play the kb on hurt effect with player and hurting obj as arguments
             kbOnHurt.HurtKnockback(gameObject, sender);
