@@ -14,15 +14,20 @@ using UnityEngine.InputSystem;
 
 public class BasicAtk : MonoBehaviour
 {
-    // Reference to golem hitbox object
+    // Reference to hitbox object
     [SerializeField]
     private GameObject[] atkList;
+    // Reference to different effects
+    [SerializeField]
+    private GameObject[] effectList;
     // Reference to atk cds
     [SerializeField]
     private float[] cdList;
-    // Reference to golem hitbox object
-    private GameObject currentAttack;
 
+    // Reference to hitbox object
+    private GameObject currentAttack;
+    // Reference to current effect
+    private GameObject currentEffect;
     // Reference the current character
     private string currentCharacter;
 
@@ -126,6 +131,8 @@ public class BasicAtk : MonoBehaviour
             currentAttack = atkList[0];
             // Set current attack cd as golem's
             attackCooldown = cdList[0];
+            // Set current effect as golem's
+            currentEffect = effectList[0];
         }
         else if (currentCharacter == "Butcher")
         {
@@ -133,6 +140,8 @@ public class BasicAtk : MonoBehaviour
             currentAttack = atkList[1];
             // Set current attack cd as butcher's
             attackCooldown = cdList[1];
+            // Set current effect as butcher's
+            currentEffect = effectList[1];
         }
         else if (currentCharacter == "Slinger")
         {
@@ -140,6 +149,8 @@ public class BasicAtk : MonoBehaviour
             currentAttack = atkList[2];
             // Set current attack cd as slinger's
             attackCooldown = cdList[2];
+            // Set current effect as slinger's
+            currentEffect = effectList[2];
         }
     }
 
@@ -156,10 +167,17 @@ public class BasicAtk : MonoBehaviour
         // Face the attack to the direction
         currentAttack.transform.LookAt(transform.position + pointDir);
 
+        // Make turn direction vector3 y = 0
+        Vector3 horizontalDir = new Vector3(pointDir.x, 0f, pointDir.z);
+        // Create particle effect instance
+        GameObject effectClone = Instantiate(currentEffect, transform.position, Quaternion.LookRotation(horizontalDir));
+
         // Active frames for attack
         yield return new WaitForSeconds(attackActive);
         // Set player attacking as false
         attacking = false;
+        // Remove effect instance
+        Destroy(effectClone);
         // Stop player attack 
         currentAttack.SetActive(attacking);
 

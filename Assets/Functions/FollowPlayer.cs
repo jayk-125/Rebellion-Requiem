@@ -4,20 +4,13 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    // Reference player object
-    GameObject player;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Assign player object as player
-        player = GameObject.Find("Player");
-    }
+    // Reference target object
+    public GameObject target;
 
     // Update is called once per frame
     void Update()
     {
-        // Follow player position
-        transform.position = player.transform.position;
+        // Follow target position
+        transform.position = target.transform.position;
     }
 }

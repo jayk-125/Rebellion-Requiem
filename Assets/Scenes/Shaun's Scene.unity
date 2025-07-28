@@ -30714,6 +30714,29 @@ PrefabInstance:
       propertyPath: atkList.Array.data[2]
       value: 
       objectReference: {fileID: 845274856}
+    - target: {fileID: 9051047779149847775, guid: deed737ed860de44aa51f0d879b6835c,
+        type: 3}
+      propertyPath: effectList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051047779149847775, guid: deed737ed860de44aa51f0d879b6835c,
+        type: 3}
+      propertyPath: effectList.Array.data[0]
+      value: 
+      objectReference: {fileID: 1384069749665394743, guid: 4b66fadb2f40a554caded5c3eb39f74e,
+        type: 3}
+    - target: {fileID: 9051047779149847775, guid: deed737ed860de44aa51f0d879b6835c,
+        type: 3}
+      propertyPath: effectList.Array.data[1]
+      value: 
+      objectReference: {fileID: 684363532134865961, guid: 096102687586d1045a523b6f049b1fb4,
+        type: 3}
+    - target: {fileID: 9051047779149847775, guid: deed737ed860de44aa51f0d879b6835c,
+        type: 3}
+      propertyPath: effectList.Array.data[2]
+      value: 
+      objectReference: {fileID: 8733660944962780735, guid: ca818453f29b53e46a13b77b2ab94402,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -31029,6 +31052,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: KingBoss
       objectReference: {fileID: 0}
+    - target: {fileID: 3670318637923804842, guid: 7460449f6f0d242419a3d380391d95fe,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3839347824519701717, guid: 7460449f6f0d242419a3d380391d95fe,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -31225,6 +31253,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4561307461077539298, guid: 6a6ddfeb9d674444cbe47f72a6a8e25a,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 802576268}
     - target: {fileID: 7896718344967259462, guid: 6a6ddfeb9d674444cbe47f72a6a8e25a,
         type: 3}
       propertyPath: m_Name

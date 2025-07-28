@@ -1547,6 +1547,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  effectList:
+  - {fileID: 1384069749665394743, guid: 4b66fadb2f40a554caded5c3eb39f74e, type: 3}
+  - {fileID: 684363532134865961, guid: 096102687586d1045a523b6f049b1fb4, type: 3}
+  - {fileID: 8733660944962780735, guid: ca818453f29b53e46a13b77b2ab94402, type: 3}
   cdList:
   - 0.55
   - 0.2
