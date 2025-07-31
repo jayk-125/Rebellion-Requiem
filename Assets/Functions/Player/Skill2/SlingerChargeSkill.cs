@@ -19,6 +19,16 @@ public class SlingerChargeSkill : MonoBehaviour
     public PointingDirection pointingDirection;
     // Reference player pointing direction script
     public PlayerStunned playerStunned;
+    // Reference slinger skill effect
+    public ParticleSystem slingerSkillEffect;
+    // Reference pulse effect
+    public ParticleSystem pulseEffect;
+    // Reference charge start sfx
+    public AudioSource chargeStartSFX;
+    // Reference charge fire sfx
+    public AudioSource chargeFireSFX;
+    // Reference charge max sfx
+    public AudioSource chargeMaxSFX;
 
     // Charged projectile
     public GameObject chargeProjectile;
@@ -36,9 +46,14 @@ public class SlingerChargeSkill : MonoBehaviour
     public float projectileSpd = 100f;
     // Charge Power Value
     private int chargePow = 0;
+    // Charge Rate Value
+    private int chargeRate = 2;
     // Max Charge Power Value
-    private float maxCharge = 60f;
+    private int maxCharge = 60;
 
+
+    // Reference if skill is being held down
+    public bool heldDown = false;
     // Reference if skill is in use
     private bool allowSkill = false;
     // Reference if cooling down
@@ -47,16 +62,37 @@ public class SlingerChargeSkill : MonoBehaviour
     private bool isFacing = false;
     // Player attack charging status
     private bool isCharging = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    // Player charge is max
+    private bool isMax = false;
 
     // Update is called every frame
     void Update()
     {
+        //Debug.Log(heldDown);
+        // If is held down
+        if (heldDown)
+        {
+            // Check if can charge
+            if (allowSkill)
+            {
+                // If not started charging yet
+                if (!isCharging)
+                {
+                    // Allow charging skill
+                    ChargeSkill();
+                    // Disable non-charge atk skills
+                    playerStunned.PlayerChargingDisabled();
+                }
+                // If charging started
+                else
+                {
+                    // Allow face direction of mouse
+                    pointingDirection.FaceDirection();
+                    ChargingAttack();
+                }
+            }
+        }
+
         // If the player is facing
         if (isFacing)
         {
@@ -65,25 +101,22 @@ public class SlingerChargeSkill : MonoBehaviour
             // Make player face direction of saved facing direction
             player.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 12f);
         }
-
-        // If the player is currently charging attack
-        if (isCharging)
-        {
-            // Allow face direction of mouse
-            pointingDirection.FaceDirection();
-            ChargingAttack();
-        }
     }
 
     // When player is holding down skill button
     public void ChargeSkill()
     {
-        // If the player can use this skill
-        if (allowSkill)
-        {
-            // Set charging as true
-            isCharging = true;
-        }
+        Debug.Log("Charging");
+        // Play charge start sfx
+        chargeStartSFX.Play();
+        // Play skill effect
+        SkillActivate();
+        // Play pulse effect
+        pulseEffect.Play();
+        // Set charging as true
+        isCharging = true;
+        // Set facing as true
+        isFacing = true;
     }
 
     // Increase power while charging attack
@@ -93,9 +126,16 @@ public class SlingerChargeSkill : MonoBehaviour
         if (chargePow < maxCharge)
         {
             // Increase power
-            chargePow += 1;
+            chargePow += chargeRate;
 
-            Debug.Log(chargePow);
+            //Debug.Log(chargePow);
+        }
+        else if (!isMax)
+        {
+            // Set is max as true
+            isMax = true;
+            // Play charge max sfx
+            chargeMaxSFX.Play();
         }
     }
 
@@ -106,15 +146,27 @@ public class SlingerChargeSkill : MonoBehaviour
         if (allowSkill)
         {
             //Debug.Log("Skill1!");
+
+            // Play skill effect
+            SkillActivate();
             // Disable skill
             allowSkill = false;
-            // Coolding down
-            isCoolingDown = true;
             // Set charging as false
             isCharging = false;
+            // Set facing as false
+            isFacing = false;
+            // Set max as false
+            isMax = false;
 
             // Stop facing direction of mouse
             pointingDirection.StopFacing();
+
+            // Stop charge start sfx
+            chargeStartSFX.Stop();
+            // Play charge fire sfx
+            chargeFireSFX.Play();
+            // Stop pulse effect
+            pulseEffect.Stop();
             // Attack cooldown
             SkillActive();
         }
@@ -151,11 +203,25 @@ public class SlingerChargeSkill : MonoBehaviour
         chargePow = 0;
         // Allow player to attack after cooldown
         allowSkill = false;
-        // No longer cooling down
+        // Is cooling down
         isCoolingDown = true;
+
+        // Enable non-charge atk skills
+        playerStunned.PlayerChargingEnabled();
 
         // Reset momentum
         StartCoroutine(SkillCd());
+    }
+
+    // Play effect on skill use
+    public void SkillActivate()
+    {
+        // If the player can use this skill
+        if (allowSkill)
+        {
+            // Play skill particle effect
+            slingerSkillEffect.Play();
+        }
     }
 
     // Attack cooldown

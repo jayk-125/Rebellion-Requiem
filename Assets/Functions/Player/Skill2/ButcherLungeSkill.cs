@@ -19,6 +19,12 @@ public class ButcherLungeSkill : MonoBehaviour
     public PointingDirection pointingDirection;
     // Reference player pointing direction script
     public PlayerStunned playerStunned;
+    // Reference butcher skill effect
+    public ParticleSystem butcherSkillEffect;
+    // Reference looping dash effect
+    public ParticleSystem loopingDashEffect;
+    // Reference to butcher lunge sfx
+    public AudioSource lungeSFX;
 
     // Dash hitbox
     public GameObject lungeHitbox;
@@ -69,6 +75,11 @@ public class ButcherLungeSkill : MonoBehaviour
         if (allowSkill)
         {
             //Debug.Log("Skill1!");
+            // Play lunge sfx
+            lungeSFX.Play();
+            // Play skill particle effect
+            butcherSkillEffect.Play();
+            
             // Disable skill
             allowSkill = false;
             // Coolding down
@@ -84,6 +95,8 @@ public class ButcherLungeSkill : MonoBehaviour
     {
         // Carry out player attack 
         lungeHitbox.SetActive(true);
+        // Play the dash effect
+        loopingDashEffect.Play();
 
         // Effect of dash
         // Get player direction based on mouse
@@ -120,6 +133,9 @@ public class ButcherLungeSkill : MonoBehaviour
 
         // Enable player movement
         playerStunned.PlayerActionEnableNoIframe();
+
+        // Stop the dash effect
+        loopingDashEffect.Stop();
 
         // Start dash cd
         StartCoroutine(SkillCd());

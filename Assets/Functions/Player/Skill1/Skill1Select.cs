@@ -73,7 +73,10 @@ public class Skill1Select : MonoBehaviour
     {
         // Set currentCharacter as new switched player
         currentCharacter = currentChar;
-        Debug.Log("Skill 1: " + currentCharacter);
+        //Debug.Log("Skill 1: " + currentCharacter);
+
+        // Delete warp projectile
+        slingerWarpSkill.DeleteWarp();
 
         // Set current character type
         if (currentCharacter == "Golem")

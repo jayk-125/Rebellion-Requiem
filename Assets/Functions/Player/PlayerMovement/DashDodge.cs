@@ -20,6 +20,10 @@ public class DashDodge : MonoBehaviour
     public PlayerStunned playerStunned;
     // Reference player pointing direction script
     public PointingDirection pointingDirection;
+    // Reference dash effect
+    public ParticleSystem dashEffect;
+    // Reference dash sfx
+    public AudioSource dashSFX;
 
     // Reference player rigidbody
     public Rigidbody rb;
@@ -64,6 +68,11 @@ public class DashDodge : MonoBehaviour
             // Check if player can dodge
             if (allowDodge)
             {
+                // Play dash effect
+                dashEffect.Play();
+                // Play dash sfx
+                dashSFX.Play();
+
                 // Get player direction based on mouse
                 pointDirSaved = pointingDirection.pointDir;
                 

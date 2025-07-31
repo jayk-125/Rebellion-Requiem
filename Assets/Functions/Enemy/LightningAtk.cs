@@ -9,6 +9,14 @@ public class LightningAtk : MonoBehaviour
     private Transform playerRef;
     // Reference to lightning strike hitbox
     public GameObject hitbox;
+    // Reference to lightning anticipation effect
+    public ParticleSystem anticipateEffect;
+    // Reference to lightning strike effect
+    public ParticleSystem lightningEffect;
+    // Reference to lightning anticipation sfx
+    public AudioSource anticipateSFX;
+    // Reference to lightning strike sfx
+    public AudioSource lightningSFX;
 
     // Wind up time
     public float lightningWindUp = 10f;
@@ -16,17 +24,28 @@ public class LightningAtk : MonoBehaviour
     private float currentTime = 0f;
     // Can chase player
     private bool allowChase = true;
+    // Can strike
+    private bool allowLightning = true;
 
     // Reference to NavMesh agent
     public UnityEngine.AI.NavMeshAgent lightning;
 
-    // Awake is called when 
+    // Awake is called when scene is started
     void Awake()
     {
         // Find player target in scene
         playerRef = GameObject.Find("Player").transform;
         // Disable hitbox on start
         hitbox.SetActive(false);
+    }
+
+    // Start is called before the first frame
+    void Start()
+    {
+        // Play anticipation effect
+        anticipateEffect.Play();
+        // Play anticipation sfx
+        anticipateSFX.Play();
     }
 
     // Update is called once per frame
@@ -50,12 +69,35 @@ public class LightningAtk : MonoBehaviour
         // Wind up time over
         else
         {
-            // Disallow chase
-            allowChase = false;
-            // Stop the lightning from moving
-            lightning.ResetPath();
-            // Set hitbox as active
-            hitbox.SetActive(true);
+            // If lightning is allowed to be struck
+            if (allowLightning)
+            {
+                // Carry out lightning strike effect
+                LightningStrike();
+            }
         }
+    }
+
+    // Activate strike effect
+    private void LightningStrike()
+    {
+        // Disallow lightning
+        allowLightning = false;
+
+        // Stop anticipation effect
+        anticipateEffect.Stop();
+        // Stop anticipation sfx
+        anticipateSFX.Stop();
+        // Play lightning strike effect
+        lightningEffect.Play();
+        // Play lightning strike sfx
+        lightningSFX.Play();
+
+        // Disallow chase
+        allowChase = false;
+        // Stop the lightning from moving
+        lightning.ResetPath();
+        // Set hitbox as active
+        hitbox.SetActive(true);
     }
 }

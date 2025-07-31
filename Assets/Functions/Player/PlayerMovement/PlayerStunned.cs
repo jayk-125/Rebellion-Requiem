@@ -59,23 +59,23 @@ public class PlayerStunned : MonoBehaviour
     public void PlayerActionEnable()
     {
         //Debug.Log("Enable");
-        // Disallow switching to other characters
+        // Allow switching to other characters
         playerSwitch.SwitchDisableStop();
-        // Disallow movement
+        // Allow movement
         movement.EnableMovement();
 
-        // Disallow attacking
+        // Allow attacking
         basicAtk.AtkDisableStop();
-        // Disallow dash
+        // Allow dash
         dashDodge.DashDisableStop();
-        // Disallow skill 1
+        // Allow skill 1
         skill1Select.DisableSkill1Stop();
-        // Disallow skill 2
+        // Allow skill 2
         skill2Select.DisableSkill2Stop();
 
-        // Disallow kb
+        // Allow kb
         playerHealth.KBImmuneStop();
-        // Give i-frames
+        // Stop i-frames
         playerHealth.DmgImmuneStop();
     }
 
@@ -107,13 +107,35 @@ public class PlayerStunned : MonoBehaviour
         // Disallow movement
         movement.EnableMovement();
 
-        // Disallow attacking
+        // Allow attacking
         basicAtk.AtkDisableStop();
-        // Disallow dash
+        // Allow dash
         dashDodge.DashDisableStop();
-        // Disallow skill 1
+        // Allow skill 1
         skill1Select.DisableSkill1Stop();
-        // Disallow skill 2
+        // Allow skill 2
         skill2Select.DisableSkill2Stop();
+    }
+
+    // When player basics is disabled
+    public void PlayerChargingDisabled()
+    {
+        // Disallow attacking
+        basicAtk.AtkDisableStart();
+        // Disallow dash
+        dashDodge.DashDisableStart();
+        // Disallow skill 1
+        skill1Select.DisableSkill1Start();
+    }
+
+    // When player basics is enabled
+    public void PlayerChargingEnabled()
+    {
+        // Allow attacking
+        basicAtk.AtkDisableStop();
+        // Allow dash
+        dashDodge.DashDisableStop();
+        // Allow skill 1
+        skill1Select.DisableSkill1Stop();
     }
 }

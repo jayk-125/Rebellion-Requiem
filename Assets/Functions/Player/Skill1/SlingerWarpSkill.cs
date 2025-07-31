@@ -17,6 +17,16 @@ public class SlingerWarpSkill : MonoBehaviour
     public PointingDirection pointingDirection;
     // Reference player pointing direction script
     public PlayerStunned playerStunned;
+    // Reference slinger skill effect
+    public ParticleSystem slingerSkillEffect;
+    // Reference pulse effect
+    public ParticleSystem pulseEffect;
+    // Reference to warp fire sfx
+    public AudioSource warpFireSFX;
+    // Reference to warp recast sfx
+    public AudioSource warpRecastSFX;
+    // Reference to warp delete sfx
+    public AudioSource warpDeleteSFX;
 
     // Warp hitbox
     public GameObject surroundingWarpHitbox;
@@ -62,8 +72,10 @@ public class SlingerWarpSkill : MonoBehaviour
         // If the player can use this skill
         if (allowSkill)
         {
+            // Play skill particle effect
+            slingerSkillEffect.Play();
+            
             //Debug.Log("Skill1!");
-
             // When player first uses the skill
             if (!bulletExists)
             {
@@ -84,6 +96,9 @@ public class SlingerWarpSkill : MonoBehaviour
     private void SkillActive()
     {
         // Effect of warp projectile
+        // Play warp fire sfx
+        warpFireSFX.Play();
+
         // Face direction for a little
         StartCoroutine(pointingDirection.FaceForTime(skillActive));
 
@@ -126,6 +141,9 @@ public class SlingerWarpSkill : MonoBehaviour
     // When projectile has hit wall
     public void RecastSkill()
     {
+        // Play warp recast sfx
+        warpRecastSFX.Play();
+
         // TP camera to pos, without going over borders
         playerCamera.GetComponent<CameraController>().MoveCamera(destination);
         // TP to bullet pos
@@ -152,11 +170,15 @@ public class SlingerWarpSkill : MonoBehaviour
     {
         // Face the attack to the direction
         surroundingWarpHitbox.SetActive(true);
+        // Play pulse effect
+        pulseEffect.Play();
+
         // Wait for a little
         yield return new WaitForSeconds(skillActive);
         // Stop player attack 
         surroundingWarpHitbox.SetActive(false);
-
+        // Stop pulse effect
+        pulseEffect.Stop();
         // Undo stun
         playerStunned.PlayerActionEnable();
 
@@ -192,5 +214,20 @@ public class SlingerWarpSkill : MonoBehaviour
     {
         // Disable
         allowSkill = false;
+        // If warp projectile exists
+        DeleteWarp();
+    }
+
+    // Attempt to delete warp projectile
+    public void DeleteWarp()
+    {
+        // Check if projectile exists
+        if (warpProjectileCurrent != null)
+        {
+            // Play warp delete sfx
+            warpDeleteSFX.Play();
+            // Delete the bullet
+            Destroy(warpProjectileCurrent);
+        }
     }
 }

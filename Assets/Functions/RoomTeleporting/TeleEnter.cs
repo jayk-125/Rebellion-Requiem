@@ -35,7 +35,7 @@ public class TeleEnter : MonoBehaviour
         // If player
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player Triggered");
+            //Debug.Log("Player Triggered");
             // Get random destination from teleport manager
             telepoint = teleportPads.CallWarpRandom().transform.Find("TP_Exit/TP_Point");
             // Hide player

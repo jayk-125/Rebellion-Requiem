@@ -17,17 +17,16 @@ public class BasicAtk : MonoBehaviour
     // Reference to hitbox object
     [SerializeField]
     private GameObject[] atkList;
-    // Reference to different effects
-    [SerializeField]
-    private GameObject[] effectList;
     // Reference to atk cds
     [SerializeField]
     private float[] cdList;
+    // Reference to atk sfx
+    public AudioSource[] atkSFX;
+    // Curret sfx list num
+    private int currentSFX;
 
     // Reference to hitbox object
     private GameObject currentAttack;
-    // Reference to current effect
-    private GameObject currentEffect;
     // Reference the current character
     private string currentCharacter;
 
@@ -94,7 +93,7 @@ public class BasicAtk : MonoBehaviour
         // If atk is allowed
         if (allowAtk)
         {
-            Debug.Log("Attacking!");
+            //Debug.Log("Attacking!");
             // Disable attacking
             allowAtk = false;
 
@@ -127,30 +126,30 @@ public class BasicAtk : MonoBehaviour
         // Set current hitbox type
         if (currentCharacter == "Golem")
         {
+            // Set current sfx
+            currentSFX = 0;
             // Set current hitbox as golem's
             currentAttack = atkList[0];
             // Set current attack cd as golem's
             attackCooldown = cdList[0];
-            // Set current effect as golem's
-            currentEffect = effectList[0];
         }
         else if (currentCharacter == "Butcher")
         {
+            // Set current sfx
+            currentSFX = 1;
             // Set current hitbox type as butcher's
             currentAttack = atkList[1];
             // Set current attack cd as butcher's
             attackCooldown = cdList[1];
-            // Set current effect as butcher's
-            currentEffect = effectList[1];
         }
         else if (currentCharacter == "Slinger")
         {
+            // Set current sfx
+            currentSFX = 2;
             // Set current hitbox type as slinger's
             currentAttack = atkList[2];
             // Set current attack cd as slinger's
             attackCooldown = cdList[2];
-            // Set current effect as slinger's
-            currentEffect = effectList[2];
         }
     }
 
@@ -159,6 +158,8 @@ public class BasicAtk : MonoBehaviour
     {
         // Set player attacking as true
         attacking = true;
+        // Play corresponding atk sfx
+        atkSFX[currentSFX].Play();
         // Carry out player attack 
         currentAttack.SetActive(attacking);
 
@@ -167,21 +168,14 @@ public class BasicAtk : MonoBehaviour
         // Face the attack to the direction
         currentAttack.transform.LookAt(transform.position + pointDir);
 
-        // Make turn direction vector3 y = 0
-        Vector3 horizontalDir = new Vector3(pointDir.x, 0f, pointDir.z);
-        // Create particle effect instance
-        GameObject effectClone = Instantiate(currentEffect, transform.position, Quaternion.LookRotation(horizontalDir));
-
         // Active frames for attack
         yield return new WaitForSeconds(attackActive);
         // Set player attacking as false
         attacking = false;
-        // Remove effect instance
-        Destroy(effectClone);
         // Stop player attack 
         currentAttack.SetActive(attacking);
 
-        Debug.Log("Attacked!");
+        //Debug.Log("Attacked!");
 
         // Start attack cd
         StartCoroutine(AtkCd());
@@ -211,5 +205,11 @@ public class BasicAtk : MonoBehaviour
     {
         // Disallow taking dmg
         allowAtk = true;
+        // If continuous attack is on
+        if (continuousAtk)
+        {
+            // Set as player face direction of mouse
+            pointingDirection.FaceDirection();
+        }
     }
 }

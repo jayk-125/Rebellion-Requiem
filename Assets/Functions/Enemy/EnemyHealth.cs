@@ -25,22 +25,32 @@ public class EnemyHealth : MonoBehaviour
     private RangedEnemyChase rangedEnemyChase;
     // Reference to evil king behaviour script
     private EvilKingBehaviour evilKingBehaviour;
+    // Reference to player health script
+    private PlayerHealth playerHealth;
+    // Reference to enemy dmg sfx
+    public AudioSource enemyDmgSFX;
 
     // When scene is called
     void Awake()
     {
         // Assign the kb on hurt script
         kbOnHurt = GameObject.Find("KnockbackManager").GetComponent<KnockbackOnHurt>();
+        // Assign the player health script
+        playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
     }
 
     // When taking dmg
     public void TakeDamage(int dmg, GameObject sender)
     {
+        // Play enemy dmg sfx
+        enemyDmgSFX.Play();
         // Reduce dmg from health
         health -= dmg;
         // If health less than 0
         if (health <= 0)
         {
+            // Heal player
+            playerHealth.PlayerHeal();
             // Destroy enemy object
             Destroy(gameObject);
         }
@@ -69,8 +79,9 @@ public class EnemyHealth : MonoBehaviour
             }
             else if (evilKingBehaviour != null)
             {
+                int halfHp = evilKingBehaviour.maxHealth / 2;
                 // Check if below half
-                if (health <= 250)
+                if (health <= halfHp)
                 {
                     // Set the change phase as true
                     evilKingBehaviour.currentPhase = "Phase2";

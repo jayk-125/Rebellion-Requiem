@@ -19,6 +19,12 @@ public class RushEnemyChase : MonoBehaviour
     private Transform playerTarget;
     // Reference to enemy attack hitbox
     public GameObject hitbox;
+    // Reference to slash effect
+    public ParticleSystem slashEffect;
+    // Reference to woosh effect
+    public ParticleSystem wooshEffect;
+    // Reference to slash sfx
+    public AudioSource slashSFX;
 
 
     // Enemy allowed to chase player bool
@@ -55,8 +61,10 @@ public class RushEnemyChase : MonoBehaviour
 
             // Lets enemy chase after player
             enemy.SetDestination(playerTarget.position);
-            // Always look at the player
-            transform.LookAt(playerTarget);
+            // Adjust player target
+            Vector3 flatTarget = new Vector3(playerTarget.position.x, 0f, playerTarget.position.z);
+            // Always look at the player on same level
+            transform.LookAt(flatTarget);
             // If distance is near to player
             if (distance <= distanceAway)
             {
@@ -99,6 +107,14 @@ public class RushEnemyChase : MonoBehaviour
     {
         // Show atk hitbox
         hitbox.SetActive(true);
+
+        // Play slash effect
+        slashEffect.Play();
+        // Play woosh effect
+        wooshEffect.Play();
+        // Play slash sfx
+        slashSFX.Play();
+
         // Play attack atk
         yield return new WaitForSeconds(attackActive);
         // Hide atk hitbox

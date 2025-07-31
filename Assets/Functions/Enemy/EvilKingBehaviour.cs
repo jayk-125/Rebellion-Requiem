@@ -12,6 +12,8 @@ public class EvilKingBehaviour : MonoBehaviour
     public float kingCd = 0.65f;
     // Speed of projectile
     public float projectileSpd = 10f;
+    // Max hp value
+    public int maxHealth = 750;
     
     // Current attack number
     // 1 is Consecutive Arrows
@@ -32,8 +34,15 @@ public class EvilKingBehaviour : MonoBehaviour
     public GameObject projectileObj;
     // Reference to lightning objectile
     public GameObject lightningObj;
-    // Reference to knight enemy
-    public GameObject knightEnemy;
+    // Reference to enemy list
+    public GameObject[] summonEnemyList;
+    
+    // Reference arrow shot effect
+    public ParticleSystem arrowShotEffect;
+    // Reference arrow shot sfx
+    public AudioSource arrowShotSFX;
+    // Reference summon sfx
+    public AudioSource enemySummonSFX;
 
     // Reference to projectile spawner
     public GameObject arrowSpawner;
@@ -144,6 +153,11 @@ public class EvilKingBehaviour : MonoBehaviour
         // Disallow enemy to shoot
         allowShoot = false;
 
+        // Play arrow shot effect
+        arrowShotEffect.Play();
+        // Play arrow shot sfx
+        arrowShotSFX.Play();
+
         // Fire projectile
         Vector3 shootDirection = (playerRef.transform.position - arrowSpawner.transform.position).normalized;
 
@@ -191,7 +205,7 @@ public class EvilKingBehaviour : MonoBehaviour
         }
         
 
-        Debug.Log("Shots fired!");
+        //Debug.Log("Shots fired!");
         // Remove the turret bullets after 2 seconds (reduces assets loaded)
         Destroy(lightningClone, lightningWindUp + 1f);
     }
@@ -214,11 +228,15 @@ public class EvilKingBehaviour : MonoBehaviour
             enemyNum = 2;
         }
 
-        // Loop to fire each arrow
+        // Loop to spawn each enemy
         for (int i = 0; i < enemyNum; i++)
         {
-            // Attack with lightning
-            GameObject spawnedEnemy = Instantiate(knightEnemy, enemySpawner.transform);
+            // Play enemy summon sfx
+            enemySummonSFX.Play();
+            // Get a random number
+            int randomNum = Random.Range(0, 3);
+            // Summon an enemy
+            GameObject spawnedEnemy = Instantiate(summonEnemyList[randomNum], enemySpawner.transform);
             // Stop from copying the movements of parent
             spawnedEnemy.transform.SetParent(null);
             // Short wait in between

@@ -19,6 +19,10 @@ public class ButcherGrappleSkill : MonoBehaviour
     public PointingDirection pointingDirection;
     // Reference player pointing direction script
     public PlayerStunned playerStunned;
+    // Reference butcher skill effect
+    public ParticleSystem butcherSkillEffect;
+    // Reference looping dash effect
+    public ParticleSystem loopingDashEffect;
 
     // Dash hitbox
     public GameObject surroundingGrappleHitbox;
@@ -28,6 +32,10 @@ public class ButcherGrappleSkill : MonoBehaviour
     public GameObject firingPoint;
     // Reference player rigidbody
     public Rigidbody rb;
+    // Reference grapple fire sfx
+    public AudioSource grappleFireSFX;
+    // Reference grapple flight sfx
+    public AudioSource grappleFlightSFX;
 
     // Speed of grapple projectile
     public float projectileSpd = 100f;
@@ -77,7 +85,7 @@ public class ButcherGrappleSkill : MonoBehaviour
 
                 // Get player position
                 Vector3 playerPosition = player.transform.position;
-                Debug.Log(playerPosition + " " + destination);
+                //Debug.Log(playerPosition + " " + destination);
 
                 // If player has reached position
                 if (Vector3.Distance(playerPosition, destination) <= 2f || currentTime >= maxFlyTime)
@@ -114,6 +122,11 @@ public class ButcherGrappleSkill : MonoBehaviour
     // Skill active
     private void SkillActive()
     {
+        // Play skill particle effect
+        butcherSkillEffect.Play();
+        // Play grapple fire sfx
+        grappleFireSFX.Play();
+
         // Effect of grapple
         // Face direction for a little
         StartCoroutine(pointingDirection.FaceForTime(skillActive));
@@ -150,6 +163,11 @@ public class ButcherGrappleSkill : MonoBehaviour
         // Indefinite stun
         playerStunned.PlayerActionDisable();
 
+        // Play the dash effect
+        loopingDashEffect.Play();
+        // Play the flight sfx
+        grappleFlightSFX.Play();
+
         // Force of dash
         Vector3 dashForce = pointDirSaved * skillFlyPower;
         // Move player in that direction
@@ -171,6 +189,11 @@ public class ButcherGrappleSkill : MonoBehaviour
 
         // Remove rigidbody momentum
         rb.velocity = Vector3.zero;
+
+        // Stop the dash effect
+        loopingDashEffect.Stop();
+        // Stop the flight sfx
+        grappleFlightSFX.Stop();
 
         Debug.Log("No longer in flight");
 

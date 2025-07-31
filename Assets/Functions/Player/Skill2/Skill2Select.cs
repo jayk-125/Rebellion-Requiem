@@ -50,6 +50,7 @@ public class Skill2Select : MonoBehaviour
             // Check if golem skill 2 active
             if (currentSkill2 == "golemParrySkill")
             {
+                
                 // Do the golem parry skill effect
                 golemParrySkill.OnSkill();
             }
@@ -62,8 +63,8 @@ public class Skill2Select : MonoBehaviour
             // Check if slinger skill 2 active
             else if (currentSkill2 == "slingerChargeSkill")
             {
-                // Do the slinger charge skill effect
-                slingerChargeSkill.ChargeSkill();
+                // Set charge skill as being held
+                slingerChargeSkill.heldDown = true;
             }
         }
         else if (context.phase == InputActionPhase.Canceled)
@@ -71,9 +72,25 @@ public class Skill2Select : MonoBehaviour
             // Check if slinger skill 2 active
             if (currentSkill2 == "slingerChargeSkill")
             {
-                // Do the slinger charge skill effect
+                // Set charge skill as not held
+                slingerChargeSkill.heldDown = false;
+                // Fire slinger charge skill
                 slingerChargeSkill.FireSkill();
             }
+        }
+    }
+
+    // Check if charge fire is still held
+    private void ChargeFireCheck()
+    {
+        // If charging is still charging
+        if (slingerChargeSkill.heldDown == true)
+        {
+            //Debug.Log("Check clear");
+            // Set held down as false
+            slingerChargeSkill.heldDown = false;
+            // Auto fire slinger charge skill
+            slingerChargeSkill.FireSkill();
         }
     }
 
@@ -82,11 +99,13 @@ public class Skill2Select : MonoBehaviour
     {
         // Set currentCharacter as new switched player
         currentCharacter = currentChar;
-        Debug.Log("Skill 2: " + currentCharacter);
+        //Debug.Log("Skill 2: " + currentCharacter);
 
         // Set current character type
         if (currentCharacter == "Golem")
         {
+            // Stop slinger's charge if needed
+            ChargeFireCheck();
             // Set current skill 2 as this skill
             currentSkill2 = "golemParrySkill";
             // Golem skill 2 enable
@@ -94,6 +113,8 @@ public class Skill2Select : MonoBehaviour
         }
         else if (currentCharacter == "Butcher")
         {
+            // Stop slinger's charge if needed
+            ChargeFireCheck();
             // Set current skill 2 as this skill
             currentSkill2 = "butcherLungeSkill";
             // Butcher skill 2 enable

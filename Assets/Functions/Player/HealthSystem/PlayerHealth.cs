@@ -37,6 +37,11 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     private KnockbackOnHurt kbOnHurt;
 
+    // Reference to player taking dmg sfx
+    public AudioSource takeDmgSFX;
+    // Reference to player healing sfx
+    public AudioSource healSFX;
+
     // Awake is called before the first frame update, every scene start
     void Awake()
     {
@@ -97,7 +102,9 @@ public class PlayerHealth : MonoBehaviour
             // Deal 20 dmg
             dmg = 20;
         }
-        
+
+        // Play dmg sfx
+        takeDmgSFX.Play();
         // Deduct respective health from value
         healthValue -= dmg;
         // Update the player's current hp
@@ -114,6 +121,25 @@ public class PlayerHealth : MonoBehaviour
             // Reset the current scene
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    // When player is healed
+    public void PlayerHeal()
+    {
+        // Play heal sfx
+        healSFX.Play();
+        // Increase respective health from value
+        healthValue += 15;
+
+        // If health is alr at max / higher than max
+        if (healthValue >= 100)
+        {
+            // Set down to max only
+            healthValue = 100;
+        }
+
+        // Update the player's current hp
+        UpdateHealthValue();
     }
     
     // Knock the player back

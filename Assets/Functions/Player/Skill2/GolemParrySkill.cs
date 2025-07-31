@@ -15,6 +15,14 @@ public class GolemParrySkill : MonoBehaviour
 {
     // Reference player pointing direction script
     public PlayerStunned playerStunned;
+    // Reference golem skill effect
+    public ParticleSystem golemSkillEffect;
+    // Reference pulse effect
+    public ParticleSystem pulseEffect;
+    // Reference parry stance sfx
+    public AudioSource parryStanceSFX;
+    // Reference parry hit sfx
+    public AudioSource parryHitSFX; 
 
     // Parry hitbox
     public GameObject parryCollider;
@@ -51,6 +59,12 @@ public class GolemParrySkill : MonoBehaviour
         if (allowSkill)
         {
             //Debug.Log("Skill1!");
+
+            // Play skill particle effect
+            golemSkillEffect.Play();
+            // Play parry stance sfx
+            parryStanceSFX.Play();
+
             // Disable skill
             allowSkill = false;
             // Coolding down
@@ -66,6 +80,8 @@ public class GolemParrySkill : MonoBehaviour
     {
         // Carry out parry 
         parryCollider.SetActive(true);
+        // Play pulse effect
+        pulseEffect.Play();
         // Disable player movement
         playerStunned.PlayerActionDisable();
 
@@ -76,6 +92,13 @@ public class GolemParrySkill : MonoBehaviour
         parryCollider.SetActive(false);
         // Enable player movement
         playerStunned.PlayerActionEnable();
+
+        // If pulse if playing
+        if (pulseEffect.isPlaying)
+        {
+            // Stop pulse effect
+            pulseEffect.Stop();
+        }
 
         // Skill cd
         StartCoroutine(SkillCd());
@@ -98,18 +121,30 @@ public class GolemParrySkill : MonoBehaviour
         if (!didParry)
         {
             Debug.Log("PARRY!");
-            
+            // Play parry hit sfx
+            parryHitSFX.Play();
+
             // Set as did parry
             didParry = true;
 
             // Reset the attack cooldown
             ResetCooldown();
 
+            // Enable player movement
+            playerStunned.PlayerActionEnable();
+
             // Disallow player to attack after cooldown
             allowSkill = false;
             // Start cooling down
             isCoolingDown = true;
-            
+
+            // If pulse is playing
+            if (pulseEffect.isPlaying)
+            {
+                // Stop pulse effect
+                pulseEffect.Stop();
+            }
+
             // Play the parry attack
             StartCoroutine(ParryAttack());
         }
@@ -122,6 +157,9 @@ public class GolemParrySkill : MonoBehaviour
         surroundingParryHitbox.SetActive(true);
         // Disable player movement
         playerStunned.PlayerActionDisable();
+
+        // Play skill particle effect
+        golemSkillEffect.Play();
 
         // Play attack cooldown
         yield return new WaitForSeconds(skillActive);
@@ -137,8 +175,6 @@ public class GolemParrySkill : MonoBehaviour
         didParry = false;
         // Deactivate parry attack
         surroundingParryHitbox.SetActive(false);
-        // Enable player movement
-        playerStunned.PlayerActionEnable();
     }
 
     // Prematurely reset cooldown effects

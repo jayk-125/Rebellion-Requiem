@@ -19,6 +19,12 @@ public class GolemDashSkill : MonoBehaviour
     public PointingDirection pointingDirection;
     // Reference player pointing direction script
     public PlayerStunned playerStunned;
+    // Reference golem skill effect
+    public ParticleSystem golemSkillEffect;
+    // Reference looping dash effect
+    public ParticleSystem loopingDashEffect;
+    // Reference golem dash sfx
+    public AudioSource dashSFX;
 
     // Dash hitbox
     public GameObject surroundingDashHitbox;
@@ -69,6 +75,9 @@ public class GolemDashSkill : MonoBehaviour
         if (allowSkill)
         {
             //Debug.Log("Skill1!");
+
+            // Play skill particle effect
+            golemSkillEffect.Play();
             // Disable skill
             allowSkill = false;
             // Coolding down
@@ -84,7 +93,11 @@ public class GolemDashSkill : MonoBehaviour
     {
         // Carry out player attack 
         surroundingDashHitbox.SetActive(true);
-        
+        // Play the dash effect
+        loopingDashEffect.Play();
+        // Play the dash sfx
+        dashSFX.Play();
+
         // Effect of dash
         // Get player direction based on mouse
         pointDirSaved = pointingDirection.pointDir;
@@ -122,6 +135,9 @@ public class GolemDashSkill : MonoBehaviour
 
         // No longer dashing
         isDashing = false;
+
+        // Stop the dash effect
+        loopingDashEffect.Stop();
 
         // Enable player movement
         playerStunned.PlayerActionEnable();

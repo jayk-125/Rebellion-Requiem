@@ -19,6 +19,12 @@ public class LongEnemyChase : MonoBehaviour
     private Transform playerTarget;
     // Reference to enemy attack hitbox
     public GameObject hitbox;
+    // Reference stab particle
+    public ParticleSystem stabEffect;
+    // Reference woosh particle
+    public ParticleSystem wooshEffect;
+    // Reference stab sfx
+    public AudioSource stabSFX;
 
 
     // Enemy allowed to chase player bool
@@ -55,8 +61,10 @@ public class LongEnemyChase : MonoBehaviour
 
             // Lets enemy chase after player
             enemy.SetDestination(playerTarget.position);
+            // Adjust player target on same level
+            Vector3 flatTarget = new Vector3(playerTarget.position.x, 0f, playerTarget.position.z);
             // Always look at the player
-            transform.LookAt(playerTarget);
+            transform.LookAt(flatTarget);
             // If distance is near to player
             if (distance <= distanceAway)
             {
@@ -99,6 +107,14 @@ public class LongEnemyChase : MonoBehaviour
     {
         // Show atk hitbox
         hitbox.SetActive(true);
+
+        // Play stab effect
+        stabEffect.Play();
+        // Play woosh effect
+        wooshEffect.Play();
+        // Play stab sfx
+        stabSFX.Play();
+
         // Play attack atk
         yield return new WaitForSeconds(attackActive);
         // Hide atk hitbox

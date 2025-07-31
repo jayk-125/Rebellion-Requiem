@@ -18,6 +18,14 @@ public class RangedEnemyChase : MonoBehaviour
     public UnityEngine.AI.NavMeshAgent enemy;
     // Reference to player (assigned in awake)
     private Transform playerTarget;
+    // Reference arrow shot effect
+    public ParticleSystem arrowShotEffect;
+    // Reference panic effect
+    public ParticleSystem panicEffect;
+    // Reference arrow shot sfx
+    public AudioSource arrowShotSFX;
+    // Reference panic sfx
+    public AudioSource panicSFX;
 
     // Reference to projectile object
     public GameObject projectileObj;
@@ -33,6 +41,8 @@ public class RangedEnemyChase : MonoBehaviour
     private bool allowFlee = true;
     // Check if enemy is alr attacking
     private bool isAttacking = false;
+    // Check if enemy is alr panicking
+    private bool isPanic = false;
 
     // Attack distance value
     public float distanceAway = 5f;
@@ -76,6 +86,18 @@ public class RangedEnemyChase : MonoBehaviour
             // If too close to player
             else if (allowFlee)
             {
+                // Check if is not panicking
+                if (!isPanic)
+                {
+                    // Start panic effect
+                    panicEffect.Play();
+                    // Play panic sfx
+                    panicSFX.Play();
+                    // Set as panicking
+                    isPanic = true;
+                    //Debug.Log("Panic");
+                }
+
                 // Pick a random point within a range
                 Vector3 randomDirection = Random.insideUnitSphere * 5f + transform.position;
                 // Init NavMeshHit
@@ -106,6 +128,12 @@ public class RangedEnemyChase : MonoBehaviour
             // Until enemy finishes moves to that area
             if (transform.position == tempNewPos)
             {
+                // Stop panic effect
+                panicEffect.Stop();
+                // Set as no longer panicking
+                isPanic = false;
+                //Debug.Log("Panic stop");
+
                 // Allow to flee
                 allowFlee = true;
                 // Allow to shoot
@@ -146,6 +174,11 @@ public class RangedEnemyChase : MonoBehaviour
     // Start enemy attack
     private void RangedEnemyAtk()
     {
+        // Play arrow shot effect
+        arrowShotEffect.Play();
+        // Play arrow shot sfx
+        arrowShotSFX.Play();
+
         // Look at the player on Y axis only
         Vector3 flatDir = playerTarget.position - transform.position;
         flatDir.y = 0f;

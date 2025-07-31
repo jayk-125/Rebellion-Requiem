@@ -18,10 +18,14 @@ public class PlayerSwitch : MonoBehaviour
     // Array containing player models
     [SerializeField]
     public GameObject[] characterArray;
+    // Switch effect vfx
+    public ParticleSystem switchEffect;
     // Get the current character
     private GameObject currentCharacter;
     // Current character state
     public string currentState;
+    // Reference to switch sfx
+    public AudioSource switchSFX;
 
     // Reference player Basic Attack script
     private BasicAtk basicAtk;
@@ -32,6 +36,8 @@ public class PlayerSwitch : MonoBehaviour
 
     // Bool to allow player switching
     private bool allowSwitch = true;
+    // Bool to check if its start of scene
+    private bool isStart = true;
 
     // Awake is called before the scene is loaded
     void Awake()
@@ -51,7 +57,7 @@ public class PlayerSwitch : MonoBehaviour
         // Set player as Golem
         // Reset all models
         ResetSwitchStates();
-        // Set current gameobject model 
+        // Set current gameobject model
         currentCharacter = characterArray[0];
         // Do the switch
         SwitchEnd();
@@ -64,7 +70,7 @@ public class PlayerSwitch : MonoBehaviour
         if (context.phase == InputActionPhase.Performed)
         {
             // If player can switch
-            if (allowSwitch)
+            if (allowSwitch && currentCharacter != characterArray[0])
             {
                 // Reset all models
                 ResetSwitchStates();
@@ -83,7 +89,7 @@ public class PlayerSwitch : MonoBehaviour
         if (context.phase == InputActionPhase.Performed)
         {
             // If player can switch
-            if (allowSwitch)
+            if (allowSwitch && currentCharacter != characterArray[1])
             {
                 // Reset all models
                 ResetSwitchStates();
@@ -102,7 +108,7 @@ public class PlayerSwitch : MonoBehaviour
         if (context.phase == InputActionPhase.Performed)
         {
             // If player can switch
-            if (allowSwitch)
+            if (allowSwitch && currentCharacter != characterArray[2])
             {
                 // Reset all models
                 ResetSwitchStates();
@@ -128,6 +134,22 @@ public class PlayerSwitch : MonoBehaviour
     // Last part of the switch
     private void SwitchEnd()
     {
+        // Play effects if it's not start
+        if (!isStart)
+        {
+            // Create switch effect
+            switchEffect.Play();
+            // Play switch sfx
+            switchSFX.Play();
+        }
+        // If it is start
+        else
+        {
+            // Allow future switches to play effects
+            isStart = false;
+        }
+
+        //Debug.Log("Switched");
         // Show player model
         currentCharacter.SetActive(true);
         // Set current character state
