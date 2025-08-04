@@ -125,11 +125,11 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _depth: 0
-    - _displacement: 0
+    - _depth: 0.1
+    - _displacement: 0.1
     - _foamDepth: 2
-    - _foamStrength: 0.75
-    - _foamTile: 1
+    - _foamStrength: 0.1
+    - _foamTile: 0.1
     - _normalStrength: 0.676
     - _smoothness: 0.639
     - _strength: 0.35
@@ -139,7 +139,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _deepColour: {r: 0, g: 0.17668813, b: 1, a: 0.78431374}
-    - _shallowColour: {r: 0, g: 1, b: 1, a: 0.23529412}
+    - _shallowColour: {r: 0.022961771, g: 0.7462387, b: 0.8113208, a: 0.23529412}
   m_BuildTextureStacks: []
 --- !u!114 &5211414630365170471
 MonoBehaviour:
