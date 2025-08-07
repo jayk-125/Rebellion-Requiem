@@ -45,6 +45,7 @@ public class CameraController : MonoBehaviour
 
                 // Init the position value variables
                 float newXPos = transform.position.x;
+                float newYPos = transform.position.y;
                 float newZPos = transform.position.z;
 
                 // Check if at horizontal limit
@@ -62,8 +63,11 @@ public class CameraController : MonoBehaviour
                     newZPos = targetPosition.z;
                 }
 
+                // Allow camera to move to target position based on height
+                newYPos = targetPosition.y;
+
                 // Move camera
-                transform.position = new Vector3(newXPos, transform.position.y, newZPos);
+                transform.position = new Vector3(newXPos, newYPos, newZPos);
             }
         }
     }
@@ -112,7 +116,7 @@ public class CameraController : MonoBehaviour
     {
         // Get the cam middle object
         Transform relativeStart = totalObject.transform.Find("CamMiddle");
-        Debug.Log(relativeStart);
+        //Debug.Log(relativeStart);
 
         // Get the current room's min world position
         Transform dynamicMinPos = totalObject.transform.Find("PositionHolder").Find("MinPosition");
@@ -134,7 +138,7 @@ public class CameraController : MonoBehaviour
             // Get the tele start object
             Transform teleStart = totalObject.transform.Find("TP_Exit");
             // Move camera to new position
-            transform.position = new Vector3(teleStart.position.x, transform.position.y, teleStart.position.z);
+            MoveCamera(teleStart.position);
         }
     }
 

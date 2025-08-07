@@ -15,6 +15,9 @@ public class GolemParrySkill : MonoBehaviour
 {
     // Reference player pointing direction script
     public PlayerStunned playerStunned;
+    // Reference player health script
+    public PlayerHealth playerHealth;
+
     // Reference golem skill effect
     public ParticleSystem golemSkillEffect;
     // Reference pulse effect
@@ -129,6 +132,9 @@ public class GolemParrySkill : MonoBehaviour
 
             // Reset the attack cooldown
             ResetCooldown();
+
+            // Heal player
+            playerHealth.PlayerHeal();
 
             // Enable player movement
             playerStunned.PlayerActionEnable();

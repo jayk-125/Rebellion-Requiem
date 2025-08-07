@@ -31,19 +31,19 @@ public class TeleEnter : MonoBehaviour
     // When entering player tp
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject);
+        //Debug.Log(other.gameObject);
         // If player
         if (other.CompareTag("Player"))
         {
             //Debug.Log("Player Triggered");
             // Get random destination from teleport manager
-            telepoint = teleportPads.CallWarpRandom().transform.Find("TP_Exit/TP_Point");
-            // Hide player
-            playerChar.SetActive(false);
+            telepoint = teleportPads.CallWarpRandom();
+            
             // Set player character position at new destination
             player.position = telepoint.position;
-            // Show player
-            playerChar.SetActive(true);
+
+            // Check for enemies in new room
+            teleportPads.CheckForEnemies();
         }
 
     }

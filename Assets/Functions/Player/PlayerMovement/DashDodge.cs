@@ -68,6 +68,7 @@ public class DashDodge : MonoBehaviour
             // Check if player can dodge
             if (allowDodge)
             {
+                //Debug.Log("Dash");
                 // Play dash effect
                 dashEffect.Play();
                 // Play dash sfx

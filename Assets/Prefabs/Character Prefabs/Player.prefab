@@ -1839,6 +1839,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStunned: {fileID: 8192210992211730994}
+  playerHealth: {fileID: 1497634074186754915}
   golemSkillEffect: {fileID: 1362104806471752808}
   pulseEffect: {fileID: 1138359809184543756}
   parryStanceSFX: {fileID: 6591876714465690605}
@@ -3551,8 +3552,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 1
+  m_Constraints: 112
+  m_CollisionDetection: 2
 --- !u!114 &8492913295458503198
 MonoBehaviour:
   m_ObjectHideFlags: 0

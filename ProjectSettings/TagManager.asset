@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Teleporter
   - Object
+  - Spawner
+  - TP
   layers:
   - Default
   - TransparentFX

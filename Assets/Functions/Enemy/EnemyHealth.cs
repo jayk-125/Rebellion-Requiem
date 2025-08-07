@@ -27,6 +27,8 @@ public class EnemyHealth : MonoBehaviour
     private EvilKingBehaviour evilKingBehaviour;
     // Reference to player health script
     private PlayerHealth playerHealth;
+    // Reference to teleport pads
+    private TeleportPads teleportPads;
     // Reference to enemy dmg sfx
     public AudioSource enemyDmgSFX;
 
@@ -37,6 +39,8 @@ public class EnemyHealth : MonoBehaviour
         kbOnHurt = GameObject.Find("KnockbackManager").GetComponent<KnockbackOnHurt>();
         // Assign the player health script
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
+        // Assign the teleport pads script
+        teleportPads = GameObject.Find("TeleportManager").GetComponent<TeleportPads>();
     }
 
     // When taking dmg
@@ -51,8 +55,11 @@ public class EnemyHealth : MonoBehaviour
         {
             // Heal player
             playerHealth.PlayerHeal();
+            // Remove 1 enemy from the enemy count
+            teleportPads.ReduceEnemyCount();
             // Destroy enemy object
             Destroy(gameObject);
+            Debug.Log("Destroyed");
         }
         else
         {
