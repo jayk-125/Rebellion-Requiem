@@ -178,6 +178,7 @@ public class TeleportPads : MonoBehaviour
     {
         // Reduce when enemy dies
         presentEnemies -= 1;
+        Debug.Log(presentEnemies);
         // If there are no more enemies, runs OnSafe()
         if (presentEnemies == 0)
         {
