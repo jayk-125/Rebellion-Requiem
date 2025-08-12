@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 8490636661501445263}
   - component: {fileID: 4886866303702049089}
   - component: {fileID: 2563602539370484140}
+  - component: {fileID: 4248635123193614749}
   m_Layer: 0
   m_Name: Basket4
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,12 +101,33 @@ MeshCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5227520621100538043, guid: 8dc02333ed05404499bcdc2761f46cae, type: 3}
+--- !u!65 &4248635123193614749
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992650738393538755}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.6329314, y: 0.3902132, z: 0.6329314}
+  m_Center: {x: 0.0000076293945, y: 0.1942327, z: 0.0000076293945}
 --- !u!1 &1771672839206309514
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,9 +140,10 @@ GameObject:
   - component: {fileID: 1283573523411802687}
   - component: {fileID: 7956006732450666083}
   - component: {fileID: 9100845051596312783}
+  - component: {fileID: 4478751570841200739}
   m_Layer: 0
   m_Name: Basket3
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,12 +229,33 @@ MeshCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6252402331002882055, guid: 8dc02333ed05404499bcdc2761f46cae, type: 3}
+--- !u!65 &4478751570841200739
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771672839206309514}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.6329314, y: 0.3902132, z: 0.6329314}
+  m_Center: {x: 0, y: 0.19469953, z: 0.0000076293945}
 --- !u!1 &2229529287454866725
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,9 +268,10 @@ GameObject:
   - component: {fileID: 4665335354026552942}
   - component: {fileID: 3140609992591619359}
   - component: {fileID: 4482090199212600703}
+  - component: {fileID: 7014035535434990865}
   m_Layer: 0
   m_Name: Crate2
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -312,12 +357,33 @@ MeshCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2912689961179473914, guid: 8dc02333ed05404499bcdc2761f46cae, type: 3}
+--- !u!65 &7014035535434990865
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2229529287454866725}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.4405798, y: 0.13187192, z: 0.7087054}
+  m_Center: {x: 0.00057803094, y: 0.065791555, z: -0.00088736415}
 --- !u!1 &2605506897002303705
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,9 +396,10 @@ GameObject:
   - component: {fileID: 9218287397277206896}
   - component: {fileID: 2957447908946485853}
   - component: {fileID: 2772874393886115751}
+  - component: {fileID: 8383983265064985554}
   m_Layer: 0
   m_Name: Basket2
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -418,12 +485,33 @@ MeshCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4866552149825168785, guid: 8dc02333ed05404499bcdc2761f46cae, type: 3}
+--- !u!65 &8383983265064985554
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605506897002303705}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.6329314, y: 0.3902132, z: 0.6329314}
+  m_Center: {x: -0.0000076293945, y: 0.1942327, z: 0.000015258789}
 --- !u!1 &3207721357557255238
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,9 +562,10 @@ GameObject:
   - component: {fileID: 23999454861169123}
   - component: {fileID: 6572428239842517254}
   - component: {fileID: 6479310236032229891}
+  - component: {fileID: 5588700922892771340}
   m_Layer: 0
   m_Name: Stall2
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -562,12 +651,33 @@ MeshCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3404370055359818786, guid: 8dc02333ed05404499bcdc2761f46cae, type: 3}
+--- !u!65 &5588700922892771340
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4899657387027460054}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.788463, y: 3.4433162, z: 1.4851406}
+  m_Center: {x: 0.00013381243, y: 1.7221705, z: -0.012280464}
 --- !u!1 &7098942594985566919
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,9 +690,10 @@ GameObject:
   - component: {fileID: 7690045475403171607}
   - component: {fileID: 770717887622305301}
   - component: {fileID: 8642028214885002762}
+  - component: {fileID: 8144281387481334045}
   m_Layer: 0
   m_Name: Basket1
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -668,12 +779,33 @@ MeshCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4217311900169512080, guid: 8dc02333ed05404499bcdc2761f46cae, type: 3}
+--- !u!65 &8144281387481334045
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098942594985566919}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.6546947, y: 0.6275785, z: 0.6329314}
+  m_Center: {x: -0.00054079294, y: 0.31351465, z: 0.0000076293945}
 --- !u!1 &8737306753805134793
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,9 +818,10 @@ GameObject:
   - component: {fileID: 8848669419188835847}
   - component: {fileID: 207549909031073392}
   - component: {fileID: 8388449031650155927}
+  - component: {fileID: 6347119431582168344}
   m_Layer: 0
   m_Name: Crate3.002
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -774,9 +907,30 @@ MeshCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7284149196925300064, guid: 8dc02333ed05404499bcdc2761f46cae, type: 3}
+--- !u!65 &6347119431582168344
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8737306753805134793}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.4405798, y: 0.23907, z: 0.7087054}
+  m_Center: {x: 0.0008331984, y: 0.119473785, z: -0.0010502338}

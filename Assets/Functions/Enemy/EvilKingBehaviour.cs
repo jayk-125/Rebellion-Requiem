@@ -30,6 +30,8 @@ public class EvilKingBehaviour : MonoBehaviour
     private EnemyHealth enemyHealth;
     // Reference to player object
     private GameObject playerRef;
+    // Reference to teleport pads
+    private TeleportPads teleportPads;
     // Reference to projectile object
     public GameObject projectileObj;
     // Reference to lightning objectile
@@ -54,6 +56,8 @@ public class EvilKingBehaviour : MonoBehaviour
     {
         // Assign the enemy health script
         enemyHealth = gameObject.GetComponent<EnemyHealth>();
+        // Assign the teleport pads
+        teleportPads = GameObject.Find("TeleportManager").GetComponent<TeleportPads>();
         // Assign the player objects
         playerRef = GameObject.Find("Player");
     }
@@ -239,6 +243,14 @@ public class EvilKingBehaviour : MonoBehaviour
             GameObject spawnedEnemy = Instantiate(summonEnemyList[randomNum], enemySpawner.transform);
             // Stop from copying the movements of parent
             spawnedEnemy.transform.SetParent(null);
+
+            // If teleport pads is valid
+            if (teleportPads != null)
+            {
+                // Increase number of enemies in room
+                teleportPads.IncreaseEnemyCount();
+            }
+
             // Short wait in between
             StartCoroutine(ShortDelay());
         }

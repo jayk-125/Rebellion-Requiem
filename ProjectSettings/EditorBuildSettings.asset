@@ -8,6 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/VillageStage.unity
+    guid: 88baf23ae12a3ea40bb29d7a649d8b25
+  - enabled: 1
+    path: Assets/Scenes/DungeonStage.unity
+    guid: 1f175c64c1a32d8499e7e37e22d5908d
+  - enabled: 1
+    path: Assets/Scenes/FinalBoss.unity
+    guid: c3bd855c29e69bf4c87e4c0e1aff350f
+  - enabled: 1
+    path: Assets/Scenes/EndScreen.unity
+    guid: e080da1bc885b9a45a33d3487669df14
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 6684ff8ba24fddf4c931b3916288632a,
       type: 2}

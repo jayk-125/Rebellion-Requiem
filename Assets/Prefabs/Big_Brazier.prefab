@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2200493762081335171}
   - component: {fileID: 5894529650061379582}
   - component: {fileID: 2772848207036639155}
+  - component: {fileID: 5632373006376948028}
+  - component: {fileID: 9101625150824052402}
   m_Layer: 0
   m_Name: Big_Brazier
   m_TagString: Object
@@ -107,6 +109,46 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2972364292484029205, guid: 4f0561fe4f626ea448d94579ed4eee83, type: 3}
+--- !u!65 &5632373006376948028
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431875178058902283}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8509939, y: 0.85099405, z: 1.7339821}
+  m_Center: {x: -0.0000076293945, y: 0, z: 0.9386427}
+--- !u!114 &9101625150824052402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431875178058902283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &3398753154309188062
 PrefabInstance:
   m_ObjectHideFlags: 0

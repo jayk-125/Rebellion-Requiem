@@ -45,11 +45,17 @@ public class BasicAtk : MonoBehaviour
     // Direction of mouse from player
     public PointingDirection pointingDirection;
 
+    // Reference to animation scripts
+    // Butcher animations
+    public ButcherAnim butcherAnim;
+
     // Start is called before the first frame update
     void Start()
     {
         // Hide all hitboxes
         ResetHitboxes();
+        // Set butcher start
+        SwitchCharacter("Golem");
     }
 
     // Update is called once per frame
@@ -174,6 +180,9 @@ public class BasicAtk : MonoBehaviour
         attacking = false;
         // Stop player attack 
         currentAttack.SetActive(attacking);
+
+        // Play attack animation
+        butcherAnim.ButcherBasic();
 
         //Debug.Log("Attacked!");
 
