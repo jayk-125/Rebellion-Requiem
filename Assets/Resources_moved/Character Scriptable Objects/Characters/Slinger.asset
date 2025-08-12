@@ -16,3 +16,4 @@ MonoBehaviour:
   characterUI:
   - {fileID: 21300000, guid: 9f2cedf45de34bc42a6926fdb313f473, type: 3}
   - {fileID: 21300000, guid: d3930b236acb2584fb3bab23aa4c634a, type: 3}
+  - {fileID: 21300000, guid: a0a940612a0ff62408eda037bc854c5e, type: 3}

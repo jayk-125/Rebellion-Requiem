@@ -10,6 +10,8 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +20,9 @@ public class PlayerSwitch : MonoBehaviour
     // Array containing player models
     [SerializeField]
     public GameObject[] characterArray;
+    //UI Manager to send info to
+    [SerializeField]
+    private GameObject UIManager;
     // Switch effect vfx
     public ParticleSystem switchEffect;
     // Get the current character
@@ -76,6 +81,8 @@ public class PlayerSwitch : MonoBehaviour
                 ResetSwitchStates();
                 // Set current gameobject model 
                 currentCharacter = characterArray[0];
+                // Set UI to the corresponding UI
+                UIManager.GetComponent<MainGameUIManager>().UIChange(0);
                 // Do the switch
                 SwitchEnd();
             }
@@ -95,6 +102,8 @@ public class PlayerSwitch : MonoBehaviour
                 ResetSwitchStates();
                 // Set current gameobject model 
                 currentCharacter = characterArray[1];
+                // Set UI to the corresponding UI
+                UIManager.GetComponent<MainGameUIManager>().UIChange(1);
                 // Do the switch
                 SwitchEnd();
             }
@@ -114,6 +123,8 @@ public class PlayerSwitch : MonoBehaviour
                 ResetSwitchStates();
                 // Set current gameobject model 
                 currentCharacter = characterArray[2];
+                // Set UI to the corresponding UI
+                UIManager.GetComponent<MainGameUIManager>().UIChange(2);
                 // Do the switch
                 SwitchEnd();
             }

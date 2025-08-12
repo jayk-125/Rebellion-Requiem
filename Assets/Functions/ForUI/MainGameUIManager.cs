@@ -11,6 +11,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using System;
 
 public class MainGameUIManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class MainGameUIManager : MonoBehaviour
     private Image Hue;
     [SerializeField]
     private Image HealthDisplay;
+    [SerializeField]
+    private Image WeaponDisplay;
 
     //Reference to script that holds the character's names
     [SerializeField]
@@ -36,40 +39,54 @@ public class MainGameUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Put the script of the gameobject into playerswitch to extract the array
+        // Grab PlayerSwitch reference
         playerSwitch = ObjectWithCharacterArray.GetComponent<PlayerSwitch>();
 
-        //scans the array, finds the correct scriptable object to grab and reference
-        for (int i = 0; i < playerSwitch.characterArray.Length; i++) //loops depending on how many items are in the array
+        //Load all required ScriptableObjects synchronously
+        LoadAllCharacterData();
+
+        //Only set UI if data exists
+        if (CharacterData.Count > 0)
         {
-            CharacterName = playerSwitch.characterArray[i].name; //puts the name of the object in the array into a variable
-            Debug.Log("GameObject Name at index " + i + ": " + CharacterName);
-
-            Addressables.LoadAssetAsync<CharacterData>(CharacterName).Completed += OnLoaded; //loads the required character data
-
-
-        }
-
-        
-
-
-    }
-
-
-
-    private void OnLoaded(AsyncOperationHandle<CharacterData> handle)
-    {
-        if (handle.Status == AsyncOperationStatus.Succeeded) //error check
-        {
-            CharacterData.Add(handle.Result); //adds the SO into the list
-            Debug.Log("Loaded SO: " + handle.Result.name);
-            Debug.Log("Added" + CharacterData[0].characterName);
-            Hue.sprite = CharacterData[0].characterUI[0]; //Loads the first character's UI (apparently, OnLoaded runs after Start, making it so that the charaacter data list is empty until Start finishes and OnLoaded starts)
+            Hue.sprite = CharacterData[0].characterUI[0];
             HealthDisplay.sprite = CharacterData[0].characterUI[1];
+            WeaponDisplay.sprite = CharacterData[0].characterUI[2];
+            Debug.Log("UI Updated with: " + CharacterData[0].characterName);
         }
         else
         {
-            Debug.LogError("Failed to load ScriptableObject.");
+            Debug.LogError("No CharacterData loaded, UI not updated.");
         }
+    }
+
+    private void LoadAllCharacterData()
+    {
+        for (int i = 0; i < playerSwitch.characterArray.Length; i++)
+        {
+            CharacterName = playerSwitch.characterArray[i].name;
+            Debug.Log("Loading ScriptableObject for: " + CharacterName);
+
+            // Load synchronously
+            AsyncOperationHandle<CharacterData> handle = Addressables.LoadAssetAsync<CharacterData>(CharacterName);
+            CharacterData loadedData = handle.WaitForCompletion();
+
+            if (loadedData != null)
+            {
+                CharacterData.Add(loadedData);
+                Debug.Log("Loaded SO: " + loadedData.name);
+            }
+            else
+            {
+                Debug.LogError("Failed to load ScriptableObject: " + CharacterName);
+            }
+        }
+    }
+
+    public void UIChange(int characterNumber)
+    {
+        Hue.sprite = CharacterData[characterNumber].characterUI[0];
+        HealthDisplay.sprite = CharacterData[characterNumber].characterUI[1];
+        WeaponDisplay.sprite = CharacterData[characterNumber].characterUI[2];
+        Debug.Log("UI Updated with: " + CharacterData[characterNumber].characterName);
     }
 }
