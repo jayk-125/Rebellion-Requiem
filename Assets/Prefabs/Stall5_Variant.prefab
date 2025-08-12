@@ -1071,7 +1071,7 @@ GameObject:
   - component: {fileID: 4328755634135065052}
   m_Layer: 0
   m_Name: Stall5_Variant
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

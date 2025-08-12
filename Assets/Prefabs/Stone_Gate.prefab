@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 5243555454305145738}
   m_Layer: 0
   m_Name: Stone_Gate
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

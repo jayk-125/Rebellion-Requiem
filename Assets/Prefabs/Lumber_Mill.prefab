@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 2978966069937240635}
   m_Layer: 0
   m_Name: Lumber_Mill
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
