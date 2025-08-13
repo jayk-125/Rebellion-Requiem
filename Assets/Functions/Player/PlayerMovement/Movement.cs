@@ -16,16 +16,38 @@ public class Movement : MonoBehaviour
     public float speed = 10f;
     // Allow player movement
     public bool allowMove = true;
+    // Bool for player moving
+    private bool isMoving = false;
     // Allow player facing direction
     private bool allowFace = true;
     // Takes all directional inputs
     private Vector2 move;
 
+    // Reference to animation scripts
+    // Butcher animations
+    public ButcherAnim butcherAnim;
+
     // When receiving input from player
     public void OnMove(InputAction.CallbackContext context)
     {
-        // Obtain direction based on player input
-        move = context.ReadValue<Vector2>();
+        // While player is pressing movement
+        if (context.phase == InputActionPhase.Performed)
+        {
+            // Obtain direction based on player input
+            move = context.ReadValue<Vector2>();
+            // Set bool is moving
+            isMoving = true;
+        }
+        // When player releases movement
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            // Stop player movement
+            move = Vector2.zero; 
+            // Set bool is not moving
+            isMoving = false;
+            // Set butcher as idling
+            butcherAnim.ButcherIdle();
+        }
     }
 
     // Start is called before the first frame update
@@ -46,6 +68,13 @@ public class Movement : MonoBehaviour
         else
         {
             //Debug.Log("Stopped");
+        }
+
+        // Check if isMoving
+        if (isMoving)
+        {
+            // Set butcher as running
+            butcherAnim.ButcherRun();
         }
     }
 

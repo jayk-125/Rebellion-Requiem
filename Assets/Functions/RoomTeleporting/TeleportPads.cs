@@ -33,7 +33,7 @@ public class TeleportPads : MonoBehaviour
     public AudioSource enemyClearedSFX;
 
     // Reference to the current referenced room
-    private GameObject roomReference;
+    public GameObject roomReference;
     // Number of Enemies that are spawned in
     private int presentEnemies = 0;
     // Current number of rooms
@@ -157,8 +157,8 @@ public class TeleportPads : MonoBehaviour
             SceneManager.LoadScene(scene + 1);
         }
 
-            // Get the corresponding room element
-            roomReference = usableTeleports[randRoomNum - 1];
+        // Get the corresponding room element
+        roomReference = usableTeleports[randRoomNum - 1];
 
         // TELEPORTING PLAYER STUFF
         // Move camera borders
@@ -171,6 +171,14 @@ public class TeleportPads : MonoBehaviour
 
         // Return the room destination
         return roomLocation.transform;
+    }
+
+    // When an enemy is summoned, their count increases
+    public void IncreaseEnemyCount()
+    {
+        // Increase when new enemy summoned
+        presentEnemies += 1;
+        Debug.Log(presentEnemies);
     }
 
     // When an enemy dies, their count decreases

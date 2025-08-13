@@ -31,6 +31,10 @@ public class DashDodge : MonoBehaviour
     // Saved pointdir
     private Vector3 pointDirSaved;
 
+    // Reference to animation scripts
+    // Butcher animations
+    public ButcherAnim butcherAnim;
+
     // Dash status
     private bool allowDodge = true;
     // Reference if cooling down
