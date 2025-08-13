@@ -3616,6 +3616,7 @@ MonoBehaviour:
   - {fileID: 5411397585288633562}
   - {fileID: 7900199636417601302}
   - {fileID: 5228637824947106520}
+  UIManager: {fileID: 0}
   switchEffect: {fileID: 4472684207778701646}
   currentState: 
   switchSFX: {fileID: 635139362853536097}
@@ -4649,6 +4650,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6378531343352829183}
     m_Modifications:
+    - target: {fileID: 141170366624707385, guid: 550892759e48b264280df7fa3d26d3fa,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 473776db8ddc1e34b869b1a51501fa46, type: 2}
     - target: {fileID: 1923830853606567747, guid: 550892759e48b264280df7fa3d26d3fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4883,12 +4889,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8da067c6a9229294388d9d2675dc7802, type: 2}
+      objectReference: {fileID: 2100000, guid: da08899f661bf624da9d0a234e1afbc4, type: 2}
     - target: {fileID: -4982485458470054150, guid: 6e2b305df2cbc5341a4b911d111a3afe,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8da067c6a9229294388d9d2675dc7802, type: 2}
+      objectReference: {fileID: 2100000, guid: e1ce55f5e199c4b468683a758f6e9e1d, type: 2}
     - target: {fileID: -3377724464195737856, guid: 6e2b305df2cbc5341a4b911d111a3afe,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -4923,12 +4929,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8da067c6a9229294388d9d2675dc7802, type: 2}
+      objectReference: {fileID: 2100000, guid: 6d2bc4e4db8d5e34db0ef59a65b7647b, type: 2}
     - target: {fileID: 377728583930713485, guid: 6e2b305df2cbc5341a4b911d111a3afe,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8da067c6a9229294388d9d2675dc7802, type: 2}
+      objectReference: {fileID: 2100000, guid: bfe7287b6869664428a0d60ae1daede9, type: 2}
     - target: {fileID: 919132149155446097, guid: 6e2b305df2cbc5341a4b911d111a3afe,
         type: 3}
       propertyPath: m_Name
@@ -4938,12 +4944,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8da067c6a9229294388d9d2675dc7802, type: 2}
+      objectReference: {fileID: 2100000, guid: 50070cd7f92c1404f8ee18cfbd030cd6, type: 2}
     - target: {fileID: 3253409454975574844, guid: 6e2b305df2cbc5341a4b911d111a3afe,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8da067c6a9229294388d9d2675dc7802, type: 2}
+      objectReference: {fileID: 2100000, guid: e1ce5d31984df86418d8638f91d2e199, type: 2}
     - target: {fileID: 5677357594492072811, guid: 6e2b305df2cbc5341a4b911d111a3afe,
         type: 3}
       propertyPath: m_LocalRotation.w
